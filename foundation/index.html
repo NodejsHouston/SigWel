@@ -1,0 +1,79 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SigWel | Welcome</title>
+    <link rel="stylesheet" href="css/foundation.css" />
+    <script src="js/vendor/modernizr.js"></script>
+  </head>
+  <body>
+    <div class="row">
+      <div class="large-12 columns">
+        <h1>Welcome to SigWel</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-12 columns">
+        <div class="panel">
+          <div class="row">
+            <div class="large-offset-4 medium-offset-3 large-4 medium-6 columns">
+              <h3>Login </h3>
+              <p>Type username and sign in</p>
+              <form>
+                <div class="row">
+                  <div class="large-12 columns">
+                    <label>Username</label>
+                    <input type="text" placeholder="Username" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="large-12 columns">
+                    <label>Signature</label>
+                    <textarea placeholder="Signature"></textarea>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="large-12 columns">
+                    <label>Reference Handwriting Signature</label>
+                     <a class="small button" id="clearRef">Clear</a>
+                     <canvas id="RefSigCanvas" width="600" height="400">
+                    </canvas>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="large-12 columns">
+                    <label>Test Handwriting Signature</label>
+                    <a class="small button" id="clearTest">Clear</a>
+                     <canvas id="TestSigCanvas" width="600" height="400">
+                    </canvas>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="large-12 columns">
+                    <a class="small button" id="validate">Validate</a>
+                    <h2 id="dissimilarity"></h2>
+                  </div>
+                  
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script src="js/custom/index.js"></script>
+    <style>
+      canvas{
+        border:solid 1px #ccc;
+        cursor:crosshair;
+        background-color: #FFF;
+      }
+    </style>
+    <script>
+      $(document).foundation();
+    </script>
+  </body>
+</html>
