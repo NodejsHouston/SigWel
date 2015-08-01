@@ -98,7 +98,7 @@ function DTW(ref, test) {
 	console.log(m, n);
 	var i, j, testloop;
 	var distance, Mindistance;
-	for (testloop = 0; testloop < 200; testloop++) {
+	
 		var DistanceMatrix = new Array();
 		for (i = 0; i < m; i++) {
 			DistanceMatrix[i] = new Array();
@@ -124,15 +124,12 @@ function DTW(ref, test) {
 
 			}
 		}
-		console.log(DtwMatrix[m - 1][n - 1]);
-	}
+	
 	console.log(DtwMatrix[m - 1][n - 1]);
 	return DtwMatrix[m - 1][n - 1];
 
-
-
-	
 }
+
 
 function clearpanel(context) {
 	context.clearRect(0, 0, context.canvas.width, context.canvas.height);
