@@ -1,5 +1,5 @@
 // These are the public assets. Goal is to serve css, js, partials, images, or bower packages.
-exports.register = function(server, options, next){
+exports.register = function (server, options, next) {
 
     server.route([
         {
@@ -22,12 +22,14 @@ exports.register = function(server, options, next){
                 id: 'images'
             }
         },
+
+
         {
             method: 'GET',
             path: '/css/{path*}',
             config: {
                 handler: {
-                    directory: { path: './public/css' }
+                    directory: { path: './../../foundation/css' }
                 },
                 id: 'css'
             }
@@ -37,11 +39,33 @@ exports.register = function(server, options, next){
             path: '/js/{path*}',
             config: {
                 handler: {
-                    directory: { path: './public/js' }
+                    directory: { path: './../../foundation/js' }
                 },
                 id: 'js'
             }
         },
+        
+        
+        // {
+        //     method: 'GET',
+        //     path: '/css/{path*}',
+        //     config: {
+        //         handler: {
+        //             directory: { path: './public/css' }
+        //         },
+        //         id: 'css'
+        //     }
+        // },
+        // {
+        //     method: 'GET',
+        //     path: '/js/{path*}',
+        //     config: {
+        //         handler: {
+        //             directory: { path: './public/js' }
+        //         },
+        //         id: 'js'
+        //     }
+        // },
         {
             method: 'GET',
             path: '/bower_components/{path*}',

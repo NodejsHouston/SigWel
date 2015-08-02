@@ -35,7 +35,7 @@ server.register([
             opsInterval: 5000,
             reporters: [{
                 reporter: require('good-console'),
-                args:[{ ops: '*', request: '*', log: '*', response: '*', 'error': '*' }]
+                args: [{ ops: '*', request: '*', log: '*', response: '*', 'error': '*' }]
             }]
         }
     },
@@ -53,11 +53,14 @@ server.register([
         register: require('./server/assets/index.js')
     },
     {
-      register: require('./server/base/index.js')
+        register: require('./server/base/index.js')
+    },
+    {
+        register: require('./server/api/index.js')
     }
 ], function () {
     //Start the server
-    server.start(function() {
+    server.start(function () {
         //Log to the console the host and port info
         console.log('Server started at: ' + server.info.uri);
     });

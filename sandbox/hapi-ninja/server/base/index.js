@@ -1,12 +1,31 @@
 // Base routes for default index/root path, about page, 404 error pages, and others..
-exports.register = function(server, options, next){
+exports.register = function (server, options, next) {
 
     server.route([
+
+
+
+
+        {
+            method: 'GET',
+            path: '/foundation',
+            config: {
+                handler: function (request, reply) {
+                    reply.view('foundation', {
+                        title: 'test'
+                    });
+                },
+                id: 'foundation'
+            }
+        },
+
+
+
         {
             method: 'GET',
             path: '/about',
             config: {
-                handler: function(request, reply){
+                handler: function (request, reply) {
                     reply.view('about', {
                         title: 'Super Informative About Page'
                     });
@@ -18,8 +37,8 @@ exports.register = function(server, options, next){
             method: 'GET',
             path: '/',
             config: {
-                handler: function(request, reply){
-                  // Render the view with the custom greeting
+                handler: function (request, reply) {
+                    // Render the view with the custom greeting
                     reply.view('index', {
                         title: 'Awesome Boilerplate Homepage'
                     });
@@ -31,7 +50,7 @@ exports.register = function(server, options, next){
             method: 'GET',
             path: '/{path*}',
             config: {
-                handler: function(request, reply){
+                handler: function (request, reply) {
                     reply.view('404', {
                         title: 'Total Bummer 404 Page'
                     }).code(404);
