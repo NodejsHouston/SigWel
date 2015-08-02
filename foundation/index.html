@@ -35,8 +35,26 @@
                 </div>
                 <div class="row">
                   <div class="large-12 columns">
-                    <a href="#" class="small button">Validate</a>
+                    <label>Reference Handwriting Signature</label>
+                     <a class="small button" id="clearRef">Clear</a>
+                     <canvas id="RefSigCanvas" width="600" height="400">
+                    </canvas>
                   </div>
+                </div>
+                <div class="row">
+                  <div class="large-12 columns">
+                    <label>Test Handwriting Signature</label>
+                    <a class="small button" id="clearTest">Clear</a>
+                     <canvas id="TestSigCanvas" width="600" height="400">
+                    </canvas>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="large-12 columns">
+                    <a class="small button" id="validate">Validate</a>
+                    <h2 id="dissimilarity"></h2>
+                  </div>
+                  
                 </div>
               </form>
             </div>
@@ -46,6 +64,14 @@
     </div>
     <script src="js/vendor/jquery.js"></script>
     <script src="js/foundation.min.js"></script>
+    <script src="js/custom/index.js"></script>
+    <style>
+      canvas{
+        border:solid 1px #ccc;
+        cursor:crosshair;
+        background-color: #FFF;
+      }
+    </style>
     <script>
       $(document).foundation();
     </script>
