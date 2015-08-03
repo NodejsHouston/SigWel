@@ -1,3 +1,4 @@
+/* Prepare our canvas area */
 var RefSigContext = document.getElementById('RefSigCanvas').getContext("2d");
 var TestSigContext = document.getElementById('TestSigCanvas').getContext("2d");
 var context = null;
@@ -153,6 +154,9 @@ $(document).ready(function() {
 
 	});
 
+	/* MOUSEDOWN: When the user clicks on canvas we record the position in an array via 
+	*  the addClick function. We set the boolean paint to true. 
+	*  Finally we update the canvas with the function redraw.*/
 	$('canvas').mousedown(function(e) {
 		var offset = $(this).offset();
 		var context = null;
@@ -171,6 +175,8 @@ $(document).ready(function() {
 		redraw(context);
 	});
 
+	/* MOUSEMOVE: Draw on the canvas when our user is pressing down.
+	*  If paint is true, then we record the value. Then redraw.*/
 	$('canvas').mousemove(function(e) {
 		var offset = $(this).offset();
 		if ($(e.target).attr("id") == 'RefSigCanvas') {
@@ -187,14 +193,12 @@ $(document).ready(function() {
 		}
 	});
 
+	/* MOUSEUP: When the user lets go of the mouse button, set paint boolean to false.*/
 	$('canvas').mouseup(function(e) {
 		context.paint = false;
-		
-
-
 	});
 
-
+	/* MOUSELEAVE: If the pointer goes off the canvas area, set paint boolean to false.*/
 	$('canvas').mouseleave(function(e) {
 		context.paint = false;
 	});
@@ -247,6 +251,8 @@ function clearpanel(context) {
 	}
 }
 
+
+/* Record the click position */
 function addClick(x, y, dragging, context) {
 	var sig = context.Sig;
 	if (sig.OldX != -1) {
@@ -265,6 +271,7 @@ function addClick(x, y, dragging, context) {
 
 }
 
+/* Clear canvas and redraw signature path on the canvas */
 function redraw(context) {
 
 	clearpanel(context); // Clears the canvas

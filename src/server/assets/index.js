@@ -7,7 +7,7 @@ exports.register = function (server, options, next) {
             path: '/partials/{path*}',
             config: {
                 handler: {
-                    directory: { path: './server/views/partials' }
+                    directory: { path: './src/server/views/partials' }
                 },
                 id: 'partials'
             }
@@ -17,7 +17,7 @@ exports.register = function (server, options, next) {
             path: '/images/{path*}',
             config: {
                 handler: {
-                    directory: { path: './public/images' }
+                    directory: { path: './src/public/images' }
                 },
                 id: 'images'
             }
@@ -29,7 +29,7 @@ exports.register = function (server, options, next) {
             path: '/css/{path*}',
             config: {
                 handler: {
-                    directory: { path: './../../foundation/css' }
+                    directory: { path: './src/public/css' }
                 },
                 id: 'css'
             }
@@ -39,7 +39,7 @@ exports.register = function (server, options, next) {
             path: '/js/{path*}',
             config: {
                 handler: {
-                    directory: { path: './../../foundation/js' }
+                    directory: { path: './src/public/js' }
                 },
                 id: 'js'
             }
@@ -71,7 +71,7 @@ exports.register = function (server, options, next) {
             path: '/bower_components/{path*}',
             config: {
                 handler: {
-                    directory: { path: './public/bower_components' }
+                    directory: { path: './src/public/bower_components' }
                 },
                 id: 'bower'
             }

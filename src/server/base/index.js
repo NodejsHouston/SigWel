@@ -2,25 +2,6 @@
 exports.register = function (server, options, next) {
 
     server.route([
-
-
-
-
-        {
-            method: 'GET',
-            path: '/foundation',
-            config: {
-                handler: function (request, reply) {
-                    reply.view('foundation', {
-                        title: 'test'
-                    });
-                },
-                id: 'foundation'
-            }
-        },
-
-
-
         {
             method: 'GET',
             path: '/about',

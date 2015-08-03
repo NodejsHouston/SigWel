@@ -17,7 +17,7 @@ server.views({
     engines: {
         html: require('swig')
     },
-    path: './server/views'
+    path: './src/server/views'
 });
 
 // Export the server to be required elsewhere.
@@ -29,16 +29,16 @@ module.exports = server;
     Second: project specific plugins are loaded
  */
 server.register([
-    {
-        register: require("good"),
-        options: {
-            opsInterval: 5000,
-            reporters: [{
-                reporter: require('good-console'),
-                args: [{ ops: '*', request: '*', log: '*', response: '*', 'error': '*' }]
-            }]
-        }
-    },
+    // {
+    //     register: require("good"),
+    //     options: {
+    //         opsInterval: 5000,
+    //         reporters: [{
+    //             reporter: require('good-console'),
+    //             args: [{ ops: '*', request: '*', log: '*', response: '*', 'error': '*' }]
+    //         }]
+    //     }
+    // },
     {
         register: require("hapi-assets"),
         options: require('./assets.js')
@@ -50,13 +50,13 @@ server.register([
         register: require("hapi-cache-buster")
     },
     {
-        register: require('./server/assets/index.js')
+        register: require('./assets/index.js')
     },
     {
-        register: require('./server/base/index.js')
+        register: require('./base/index.js')
     },
     {
-        register: require('./server/api/index.js')
+        register: require('./api/index.js')
     }
 ], function () {
     //Start the server

@@ -1,4 +1,17 @@
 # Code Editor and IDE related directories
 .settings
+typings
 
+lib-cov
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+
+pids
+results
+npm-debug.log
 node_modules
