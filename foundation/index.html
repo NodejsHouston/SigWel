@@ -17,43 +17,69 @@
       <div class="large-12 columns">
         <div class="panel">
           <div class="row">
-            <div class="large-offset-4 medium-offset-3 large-4 medium-6 columns">
+            <div class="large-offset-2 medium-offset-3 large-8 medium-6 columns">
               <h3>Login </h3>
               <p>Type username and sign in</p>
               <form>
                 <div class="row">
-                  <div class="large-12 columns">
+                  <div class="large-8 columns">
                     <label>Username</label>
                     <input type="text" placeholder="Username" />
                   </div>
                 </div>
                 <div class="row">
-                  <div class="large-12 columns">
+                  <div class="large-8 columns">
                     <label>Signature</label>
                     <textarea placeholder="Signature"></textarea>
                   </div>
                 </div>
                 <div class="row">
                   <div class="large-12 columns">
-                    <label>Reference Handwriting Signature</label>
-                     <a class="small button" id="clearRef">Clear</a>
-                     <canvas id="RefSigCanvas" width="600" height="400">
-                    </canvas>
+                    <label>Reference Handwriting Signature, please supply one or more signature for accurracy</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="large-4 columns">   
+                    <a class="small button" id="clearRef" >  Clear  </a>
+                  </div>
+                  <div class="large-4 columns">   
+                    <a class="small button" id="Nextone" >  Next </a>
+                  </div>
+                  <div class="large-4 columns">   
+                    <a class="small button" id="RefSubmit" >Submit All</a>
                   </div>
                 </div>
                 <div class="row">
                   <div class="large-12 columns">
-                    <label>Test Handwriting Signature</label>
-                    <a class="small button" id="clearTest">Clear</a>
-                     <canvas id="TestSigCanvas" width="600" height="400">
+                     <canvas id="RefSigCanvas" width=610 height=350>
                     </canvas>
                   </div>
                 </div>
+                
                 <div class="row">
                   <div class="large-12 columns">
+                  <label>Test Handwriting Signature</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="large-4 columns">   
+                    <a class="small button" id="clearTest" >  Clear  </a>
+                  </div>
+                </div>
+                <div class="row">  
+                  <div class="large-12 columns">
+                   <canvas id="TestSigCanvas" width=610 height=350 >
+                    </canvas>
+                  </div>
+                </div>               
+                <div class="row">
+                  <div class="large-4 columns">
                     <a class="small button" id="validate">Validate</a>
-                    <h2 id="dissimilarity"></h2>
                   </div>
+                  <div class="large-12 columns">
+                    <h6 id="similarity"></h6>
+                  </div>
+                </div>
                   
                 </div>
               </form>
@@ -70,7 +96,17 @@
         border:solid 1px #ccc;
         cursor:crosshair;
         background-color: #FFF;
+        width: 610px;
+        height: 350px;
       }
+      label{
+        margin-bottom: 5px;
+        padding: 5px;
+      }
+      a {
+        width: 100%;
+      }
+      
     </style>
     <script>
       $(document).foundation();
