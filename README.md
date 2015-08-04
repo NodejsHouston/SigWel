@@ -19,7 +19,7 @@ The project is being organized on [Trello](https://trello.com/b/jikk5lqR/sigwel)
 - Hosting (i.e. AWS, Heroku)
 - Client side scaffolding
 
-## Before you run the Server
+## Before running the Server
 [NodeJS](https://nodejs.org/) must installed.
 
 ## Running the Server
