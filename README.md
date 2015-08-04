@@ -21,6 +21,7 @@ The project is being organized on [Trello](https://trello.com/b/jikk5lqR/sigwel)
 
 ## Before running the Server
 [NodeJS](https://nodejs.org/) must installed.
+Install [gulp](https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md) globally: npm install --global gulp
 
 ## Running the Server
 To run the server and follow the steps below:
