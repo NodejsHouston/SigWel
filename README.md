@@ -19,6 +19,10 @@ The project is being organized on [Trello](https://trello.com/b/jikk5lqR/sigwel)
 - Hosting (i.e. AWS, Heroku)
 - Client side scaffolding
 
+## Before running the Server
+[NodeJS](https://nodejs.org/) must installed.
+Install [gulp](https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md) globally: npm install --global gulp
+
 ## Running the Server
 To run the server and follow the steps below:
 1. Run `npm install` from the command prompt to install any dependencies that you have not already installed
