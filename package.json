@@ -24,6 +24,7 @@
     "hapi-assets": "~0.3.0",
     "hapi-cache-buster": "~0.4.0",
     "hapi-named-routes": "~0.3.0",
+    "mongoose": "^4.1.1",
     "swig": "~1.4.2"
   },
   "devDependencies": {
