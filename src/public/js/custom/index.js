@@ -44,7 +44,16 @@ $(document).ready(function() {
 
 	$("#RefSubmit").click(function(){
 		RefSigCollection.push(RefSigContext.Sig);
+		/*$.ajax({
+			url: 'http://localhost:3000/api/user',
+			type: 'POST',
+			data: {data:RefSigCollection},
+			success: function(data){
+				console.log(data);
+			}
+		});*/
 		var n= RefSigCollection.length;
+
 		var distanceMin = new Array(n);
 		var distanceMax = new Array(n);
 		var distanceMinAverage = new Array(n);
