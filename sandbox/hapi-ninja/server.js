@@ -2,9 +2,14 @@
 * Dependencies.
 */
 var Hapi = require('hapi');
-
+//Load Mongo driver...
+var mongoose = require('mongoose');
 // Create a new server
 var server = new Hapi.Server();
+
+//Connect to MongoDB...
+mongoose.connect("mongodb://sigwel:NhSwDb@ds029803.mongolab.com:29803/sigweldb")
+
 
 // Setup the server with a host and port
 server.connection({
@@ -23,6 +28,8 @@ server.views({
 // Export the server to be required elsewhere.
 module.exports = server;
 
+
+
 /*
     Load all plugins and then start the server.
     First: community/npm plugins are loaded
@@ -32,7 +39,7 @@ server.register([
     {
         register: require("good"),
         options: {
-            opsInterval: 5000,
+            opsInterval: 30000,
             reporters: [{
                 reporter: require('good-console'),
                 args: [{ ops: '*', request: '*', log: '*', response: '*', 'error': '*' }]
