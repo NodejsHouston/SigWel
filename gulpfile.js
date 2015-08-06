@@ -3,15 +3,9 @@
 * Dependencies.
 */
 var gulp = require('gulp');
-var util = require('gulp-util');
-var concat = require('gulp-concat');
-var minifycss = require('gulp-minify-css');
-var uglify = require('gulp-uglify');
-var imagemin = require('gulp-imagemin');
-
 var config = require('./gulp.config')();
+var $ = require('gulp-load-plugins')(); //Automatically load gulp plugins
 
-var nodemon = require('gulp-nodemon');
 var port = process.env.PORT || config.defaultPort;
 
 // the default task that is run with the command 'gulp'
@@ -24,23 +18,23 @@ gulp.task('default', function () {
     var gulpFileCwd = __dirname + '/src/public';
     process.chdir(gulpFileCwd);
     // print the working directory
-    util.log('Working directory changed to', util.colors.magenta(gulpFileCwd));
+    $.util.log('Working directory changed to', $.util.colors.magenta(gulpFileCwd));
 
     // concat and minify your css
     gulp.src(assets.development.css)
-        .pipe(concat('styles.css'))
-        .pipe(minifycss())
+        .pipe($.concat('styles.css'))
+        .pipe($.minifyCss())
         .pipe(gulp.dest('./css/'));
 
     // concat and minify your js
     gulp.src(assets.development.js)
-        .pipe(concat('scripts.js'))
-        .pipe(uglify())
+        .pipe($.concat('scripts.js'))
+        .pipe($.uglify())
         .pipe(gulp.dest('./js/'));
 
     // optimize your images
     gulp.src('./images/*')
-        .pipe(imagemin())
+        .pipe($.imagemin())
         .pipe(gulp.dest('./images/'));
 
 });
@@ -70,7 +64,7 @@ function serve(isDev) {
         watch: config.server
     };
 
-    return nodemon(nodeOptions)
+    return $.nodemon(nodeOptions)
         .on('restart', function (ev) {
             log('*** nodemon restart');
             log('files changed on restart:\n' + ev)
@@ -94,10 +88,10 @@ function log(msg) {
     if (typeof (msg) === 'object') {
         for (var item in msg) {
             if (msg.hasOwnProperty(item)) {
-                util.log(util.colors.blue(msg[item]));
+                $.util.log($.util.colors.blue(msg[item]));
             }
         }
     } else {
-        util.log(util.colors.blue(msg));
+        $.util.log($.util.colors.blue(msg));
     }
 }
