@@ -1,14 +1,24 @@
 // API routes
 var vector ={agent: "myagent"};
-vector.init = function(data,fn){
+vector.init = function(rawdata,fn){
         var err;
-        if(data<5){
-            err = false;
-            data=10;
+        var newData = new Array();
+        if (Array.isArray(data)){
+            sig.every(function(point){
+                if(point.x&&point.y){
+                    
+                }
+            })
         }
-        else err=true;
+        else if(Array.isArray(data.x)&&Array.isArray(data.y)){
 
-        if (fn(err,data))
+        }
+        else {
+
+        }
+
+
+        if (fn(err,newData))
             return this;
         else return false;
 };
