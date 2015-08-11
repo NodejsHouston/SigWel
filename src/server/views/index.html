@@ -3,11 +3,79 @@
 {% block title %}{{title}}{% endblock %}
 
 {% block content %}
-    <ul class="menu">
-        <li><a href="{{path.index}}">Home</a></li>
-        <li><a href="{{path.about}}">About</a></li>
-    </ul>
-
-    <h1>{{title}}</h1>
-    <p>This is the homepage. AKA Index.</p>
+     <div class="row">
+      <div class="large-12 columns">
+        <h1>Welcome to {{title}}</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-12 columns">
+        <div class="panel">
+          <div class="row">
+            <div class="large-offset-2 medium-offset-3 large-8 medium-6 columns">
+              <h3>Login </h3>
+              <p>Type username and sign in</p>
+              <form>
+                <div class="row">
+                  <div class="large-8 columns">
+                    <label>Username</label>
+                    <input type="text" placeholder="Username" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="large-12 columns">
+                  <label>Signature <br>
+                  Reference Handwriting Signature, please supply one or more signature for accurracy</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="large-4 columns">   
+                    <a class="small button" id="clearRef" >  Clear  </a>
+                  </div>
+                  <div class="large-4 columns">   
+                    <a class="small button" id="Nextone" >  Next </a>
+                  </div>
+                  <div class="large-4 columns">   
+                    <a class="small button" id="RefSubmit" >Submit All</a>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="large-12 columns">
+                     <canvas id="RefSigCanvas" width=610 height=350>
+                    </canvas>
+                  </div>
+                </div>
+                
+                <div class="row">
+                  <div class="large-12 columns">
+                  <label>Test Handwriting Signature</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="large-4 columns">   
+                    <a class="small button" id="clearTest" >  Clear  </a>
+                  </div>
+                </div>
+                <div class="row">  
+                  <div class="large-12 columns">
+                   <canvas id="TestSigCanvas" width=610 height=350 >
+                    </canvas>
+                  </div>
+                </div>               
+                <div class="row">
+                  <div class="large-4 columns">
+                    <a class="small button" id="validate">Validate</a>
+                  </div>
+                  <div class="large-12 columns">
+                    <h6 id="similarity"></h6>
+                  </div>
+                </div>
+                  
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 {% endblock %}
