@@ -10,7 +10,6 @@ var port = process.env.PORT || config.defaultPort;
 
 // the default task that is run with the command 'gulp'
 gulp.task('default', function () {
-
     // assets is where you define your application assets and you can pass them into gulp.
     var assets = require('./src/assets');
     
@@ -55,13 +54,14 @@ gulp.task('serve-dev', function () {
  */
 function serve(isDev) {
     var nodeOptions = {
-        script: isDev ? config.nodeServer.dev : config.nodeServer.build,
-        delayTime: 1,
-        env: {
+        script: isDev ? config.nodeServer.dev : config.nodeServer.build
+      , delayTime: 1
+      , ext: 'html'
+      , env: {
             'PORT': port,
             'NODE_ENV': isDev ? 'development' : 'build'
-        },
-        watch: config.server
+        }
+      , watch: config.server
     };
 
     return $.nodemon(nodeOptions)
