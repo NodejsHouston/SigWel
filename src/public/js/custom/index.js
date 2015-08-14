@@ -140,18 +140,16 @@ $(document).ready(function() {
 		console.log("similarity rate is:");
 		console.log(TestSigVector.distanceMin/NormalizeBase.distanceAverageMin,TestSigVector.distanceMax/NormalizeBase.distanceAverageMax,TestSigVector.distanceTemplate/NormalizeBase.distanceAverage_AverageMin);
 
-
-
-
 		/*var l= validateArray.length;
 		var distanceCount=0;
 		for (i=0; i<l; i++){
 			distanceCount+=validateArray[i];
 		}*/
-		$('#similarity').html('similarity vector: ' + '[ Min:'+((TestSigVector.distanceMin/NormalizeBase.distanceAverageMin).toFixed(2)).toString()
+		var message = 'similarity vector: ' + '[ Min:'+((TestSigVector.distanceMin/NormalizeBase.distanceAverageMin).toFixed(2)).toString()
 			+' , '+'Max:'+((TestSigVector.distanceMax/NormalizeBase.distanceAverageMax).toFixed(2)).toString()+' , '
-			+'Template:'+((TestSigVector.distanceTemplate/NormalizeBase.distanceAverage_AverageMin).toFixed(2)).toString()+']');
-
+			+'Template:'+((TestSigVector.distanceTemplate/NormalizeBase.distanceAverage_AverageMin).toFixed(2)).toString()+']';
+		var type = (TestSigVector.distanceMin/NormalizeBase.distanceAverageMin+TestSigVector.distanceMax/NormalizeBase.distanceAverageMax+TestSigVector.distanceTemplate/NormalizeBase.distanceAverage_AverageMin < 6 ? "success" :"alert")
+		showMessage(message, type);
 	});
 
 	/* MOUSEDOWN: When the user clicks on canvas we record the position in an array via 
@@ -273,7 +271,6 @@ function addClick(x, y, dragging, context) {
 
 /* Clear canvas and redraw signature path on the canvas */
 function redraw(context) {
-
 	clearpanel(context); // Clears the canvas
 	var sig = context.Sig;
 	context.strokeStyle = "#000";
@@ -291,4 +288,15 @@ function redraw(context) {
 		context.closePath();
 		context.stroke();
 	}
+}
+
+/* Display alert box with validation results */
+function showMessage(message, type) {
+    var alertMarkup = $('<div data-alert class="alert-box"><span></span><a href="#" class="close">&times;</a></div>');
+    alertMarkup.addClass(type);
+    alertMarkup.children("span").text(message);
+    $("#foundation-alerts").prepend(alertMarkup).foundation(
+        "alert",
+        undefined
+    );
 }
