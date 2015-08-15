@@ -1,9 +1,9 @@
 canvas{
   border:solid 1px #ccc;
-  cursor:crosshair;
+  cursor:pointer;
   background-color: #FFF;
   width: 610px;
-  height: 350px;
+  height: 275px;
 }
 label{
   margin-bottom: 5px;
