@@ -145,10 +145,11 @@ $(document).ready(function() {
 		for (i=0; i<l; i++){
 			distanceCount+=validateArray[i];
 		}*/
-		var message = 'similarity vector: ' + '[ Min:'+((TestSigVector.distanceMin/NormalizeBase.distanceAverageMin).toFixed(2)).toString()
+		var similarityVectorSum = TestSigVector.distanceMin/NormalizeBase.distanceAverageMin + TestSigVector.distanceMax/NormalizeBase.distanceAverageMax + TestSigVector.distanceTemplate/NormalizeBase.distanceAverage_AverageMin
+		, message = 'similarity vector: ' + '[ Min:'+((TestSigVector.distanceMin/NormalizeBase.distanceAverageMin).toFixed(2)).toString()
 			+' , '+'Max:'+((TestSigVector.distanceMax/NormalizeBase.distanceAverageMax).toFixed(2)).toString()+' , '
-			+'Template:'+((TestSigVector.distanceTemplate/NormalizeBase.distanceAverage_AverageMin).toFixed(2)).toString()+']';
-		var type = (TestSigVector.distanceMin/NormalizeBase.distanceAverageMin+TestSigVector.distanceMax/NormalizeBase.distanceAverageMax+TestSigVector.distanceTemplate/NormalizeBase.distanceAverage_AverageMin < 6 ? "success" :"alert")
+			+'Template:'+((TestSigVector.distanceTemplate/NormalizeBase.distanceAverage_AverageMin).toFixed(2)).toString()+']'
+		, type = (similarityVectorSum > 1.5 && similarityVectorSum < 6 ? "success" :"alert");
 		showMessage(message, type);
 	});
 
