@@ -1,11 +1,19 @@
 /* Prepare our canvas area */
-var RefSigContext = document.getElementById('RefSigCanvas').getContext("2d");
-var TestSigContext = document.getElementById('TestSigCanvas').getContext("2d");
-var context = null;
-var RefSigCollection = new Array(); 
-var validateArray = new Array();
-var NormalizeBase = {};
-var TestSigVector = {};
+var RefSigContext = document.getElementById('RefSigCanvas').getContext("2d")
+  , TestSigContext = document.getElementById('TestSigCanvas').getContext("2d")
+  , sigOutline = new Image()
+  , context = null
+  , RefSigCollection = new Array() 
+  , validateArray = new Array()
+  , NormalizeBase = {}
+  , TestSigVector = {};
+
+sigOutline.onload = function() {
+	RefSigContext.drawImage(sigOutline, 69, 50);
+	TestSigContext.drawImage(sigOutline, 69, 50);
+};
+
+sigOutline.src = '/images/signature-big.jpg';
 
 function signature() {
 	this.TrackX = new Array();
@@ -18,8 +26,6 @@ function signature() {
 	this.xLength = 0;
 	this.yLength = 0;
 }
-
-
 
 $(document).ready(function() {
 
@@ -121,6 +127,10 @@ $(document).ready(function() {
 		TestSigContext.Sig = new signature();
 		clearpanel(TestSigContext);
 	});
+
+	/* Validate signature
+	* pass validation if the sum of the vectors are with in range of 1.5 to 6 
+	* or else fail. */
 	$('#validate').click(function() {
 		//var distanceCount = DTW(RefSigContext.Sig, TestSigContext.Sig);
 		//var TestdistanceMin,TestdistanceMax,TestdistanceTemplate;
@@ -247,6 +257,7 @@ function DTW(refSig, testSig) {
 function clearpanel(context) {
 	if(context){
 	context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+	context.drawImage(sigOutline, 69, 50);
 	}
 }
 
@@ -273,6 +284,7 @@ function addClick(x, y, dragging, context) {
 /* Clear canvas and redraw signature path on the canvas */
 function redraw(context) {
 	clearpanel(context); // Clears the canvas
+	context.drawImage(sigOutline, 69, 50);
 	var sig = context.Sig;
 	context.strokeStyle = "#000";
 	context.lineJoin = "round";
