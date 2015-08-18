@@ -1,11 +1,19 @@
 /* Prepare our canvas area */
-var RefSigContext = document.getElementById('RefSigCanvas').getContext("2d");
-var TestSigContext = document.getElementById('TestSigCanvas').getContext("2d");
-var context = null;
-var RefSigCollection = new Array(); 
-var validateArray = new Array();
-var NormalizeBase = {};
-var TestSigVector = {};
+var RefSigContext = document.getElementById('RefSigCanvas').getContext("2d")
+  , TestSigContext = document.getElementById('TestSigCanvas').getContext("2d")
+  , sigOutline = new Image()
+  , context = null
+  , RefSigCollection = new Array() 
+  , validateArray = new Array()
+  , NormalizeBase = {}
+  , TestSigVector = {};
+
+sigOutline.onload = function() {
+	RefSigContext.drawImage(sigOutline, 69, 50);
+	TestSigContext.drawImage(sigOutline, 69, 50);
+};
+
+sigOutline.src = '/images/signature-big.jpg';
 
 function signature() {
 	this.TrackX = new Array();
@@ -18,8 +26,6 @@ function signature() {
 	this.xLength = 0;
 	this.yLength = 0;
 }
-
-
 
 $(document).ready(function() {
 
@@ -130,6 +136,10 @@ $(document).ready(function() {
 		TestSigContext.Sig = new signature();
 		clearpanel(TestSigContext);
 	});
+
+	/* Validate signature
+	* pass validation if the sum of the vectors are with in range of 1.5 to 6 
+	* or else fail. */
 	$('#validate').click(function() {
 		//var distanceCount = DTW(RefSigContext.Sig, TestSigContext.Sig);
 		//var TestdistanceMin,TestdistanceMax,TestdistanceTemplate;
@@ -149,18 +159,17 @@ $(document).ready(function() {
 		console.log("similarity rate is:");
 		console.log(TestSigVector.distanceMin/NormalizeBase.distanceAverageMin,TestSigVector.distanceMax/NormalizeBase.distanceAverageMax,TestSigVector.distanceTemplate/NormalizeBase.distanceAverage_AverageMin);
 
-
-
-
 		/*var l= validateArray.length;
 		var distanceCount=0;
 		for (i=0; i<l; i++){
 			distanceCount+=validateArray[i];
 		}*/
-		$('#similarity').html('similarity vector: ' + '[ Min:'+((TestSigVector.distanceMin/NormalizeBase.distanceAverageMin).toFixed(2)).toString()
+		var similarityVectorSum = TestSigVector.distanceMin/NormalizeBase.distanceAverageMin + TestSigVector.distanceMax/NormalizeBase.distanceAverageMax + TestSigVector.distanceTemplate/NormalizeBase.distanceAverage_AverageMin
+		, message = 'similarity vector: ' + '[ Min:'+((TestSigVector.distanceMin/NormalizeBase.distanceAverageMin).toFixed(2)).toString()
 			+' , '+'Max:'+((TestSigVector.distanceMax/NormalizeBase.distanceAverageMax).toFixed(2)).toString()+' , '
-			+'Template:'+((TestSigVector.distanceTemplate/NormalizeBase.distanceAverage_AverageMin).toFixed(2)).toString()+']');
-
+			+'Template:'+((TestSigVector.distanceTemplate/NormalizeBase.distanceAverage_AverageMin).toFixed(2)).toString()+']'
+		, type = (similarityVectorSum > 1.5 && similarityVectorSum < 6 ? "success" :"alert");
+		showMessage(message, type);
 	});
 
 	/* MOUSEDOWN: When the user clicks on canvas we record the position in an array via 
@@ -257,6 +266,7 @@ function DTW(refSig, testSig) {
 function clearpanel(context) {
 	if(context){
 	context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+	context.drawImage(sigOutline, 69, 50);
 	}
 }
 
@@ -282,8 +292,8 @@ function addClick(x, y, dragging, context) {
 
 /* Clear canvas and redraw signature path on the canvas */
 function redraw(context) {
-
 	clearpanel(context); // Clears the canvas
+	context.drawImage(sigOutline, 69, 50);
 	var sig = context.Sig;
 	context.strokeStyle = "#000";
 	context.lineJoin = "round";
@@ -300,4 +310,15 @@ function redraw(context) {
 		context.closePath();
 		context.stroke();
 	}
+}
+
+/* Display alert box with validation results */
+function showMessage(message, type) {
+    var alertMarkup = $('<div data-alert class="alert-box"><span></span><a href="#" class="close">&times;</a></div>');
+    alertMarkup.addClass(type);
+    alertMarkup.children("span").text(message);
+    $("#foundation-alerts").prepend(alertMarkup).foundation(
+        "alert",
+        undefined
+    );
 }

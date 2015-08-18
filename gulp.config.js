@@ -1,5 +1,5 @@
 module.exports = function() {
-	var serverDir = './src/server/';
+	var serverDir = './src/';
 	
 	var config = {
 		nodeServer: {

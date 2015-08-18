@@ -1,12 +1,13 @@
 <!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}{% endblock %}</title>
-
     {% include "../includes/head.html" %}
 </head>
 <body>
+	{% include "../partials/navigation.html" %}
     {% block content %}{% endblock %}
     {% include "../includes/foot.html" %}
 </body>

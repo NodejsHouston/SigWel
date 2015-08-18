@@ -3,11 +3,80 @@
 {% block title %}{{title}}{% endblock %}
 
 {% block content %}
-    <ul class="menu">
-        <li><a href="{{path.index}}">Home</a></li>
-        <li><a href="{{path.about}}">About</a></li>
-    </ul>
-
-    <h1>{{title}}</h1>
-    <p>This is the homepage. AKA Index.</p>
+<div class="row">
+  <div class="large-12 columns">
+    <div class="panel">
+      <div class="row">
+        <div class="large-offset-2 medium-offset-3 large-8 medium-6 columns">
+          <ul class="tabs" data-tab role="tablist">
+            <li class="tab-title active" role="presentation"><a href="#panel2-1" role="tab" tabindex="0" aria-selected="true" aria-controls="panel2-1">Reference Signature</a></li>
+            <li class="tab-title" role="presentation"><a href="#panel2-2" role="tab" tabindex="0" aria-selected="false" aria-controls="panel2-2">Verify Signature</a></li>
+          </ul>
+          <div class="tabs-content">
+            <section role="tabpanel" aria-hidden="false" class="content active" id="panel2-1">
+              <h3>Reference Handwriting Signature</h3>
+                <form>
+                <div class="row">
+                  <div class="large-6 columns">
+                    <input type="text" placeholder="Your legal name" required/>
+                  </div>
+                  <div class="large-6 columns">
+                    <input type="email" placeholder="Your email address" required/>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="large-12 columns">
+                    <p>Draw one or more of your signature with <strong>your mouse, tablet or smartphone</strong> for more accurracy.</p>
+                    <canvas id="RefSigCanvas" width=610 height=275></canvas>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="large-4 columns">   
+                    <a class="small button" id="clearRef" >  Clear  </a>
+                  </div>
+                  <div class="large-4 columns">   
+                    <a class="small button" id="Nextone" >  Next </a>
+                  </div>
+                  <div class="large-4 columns">   
+                    <a class="small button" id="RefSubmit" >Submit All</a>
+                  </div>
+                </div>
+              </form>
+            </section>
+            <section role="tabpanel" aria-hidden="true" class="content" id="panel2-2">
+              <h3>Verify Handwriting Signature</h3>
+              <form>
+                <div class="row">
+                  <div class="large-6 columns">
+                    <input type="text" placeholder="Your legal name" required/>
+                  </div>
+                  <div class="large-6 columns">
+                    <input type="email" placeholder="Your email address" required/>
+                  </div>
+                </div>
+                <div class="row">  
+                  <div class="large-12 columns">
+                   <p>Draw your signature with <strong>your mouse, tablet or smartphone.</strong></p>
+                   <canvas id="TestSigCanvas" width=610 height=275></canvas>
+                  </div>
+                </div>               
+                <div class="row">
+                  <div class="large-4 columns">   
+                    <a class="small button" id="clearTest">  Clear  </a>
+                  </div>
+                  <div class="large-4 columns">
+                    <a class="small button" id="validate"> Validate </a>
+                  </div>
+                  <div class="large-12 columns">
+                    <div id="foundation-alerts"></div>
+                  </div>
+                </div>
+                </form>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

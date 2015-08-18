@@ -4,14 +4,14 @@ exports.register = function (server, options, next) {
     server.route([
         {
             method: 'GET',
-            path: '/about',
+            path: '/register',
             config: {
                 handler: function (request, reply) {
-                    reply.view('about', {
-                        title: 'Super Informative About Page'
+                    reply.view('register', {
+                        title: 'Register'
                     });
                 },
-                id: 'about'
+                id: 'register'
             }
         },
         {
@@ -20,9 +20,8 @@ exports.register = function (server, options, next) {
             config: {
                 handler: function (request, reply) {
                     // Render the view with the custom greeting
-                    //this index2 is a temporary name.
-                    reply.view('index2', {
-                        //title: 'Awesome Boilerplate Homepage'
+                    reply.view('index', {
+                        title: 'SigWel'
                     });
                 },
                 id: 'index'
