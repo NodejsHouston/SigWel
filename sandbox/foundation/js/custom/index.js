@@ -45,16 +45,16 @@ $(document).ready(function() {
 	$("#RefSubmit").click(function(){
 		RefSigCollection.push(RefSigContext.Sig);
 		var username=$("#username").val();
-		console.log(username);
+		//console.log(username);
 		$.ajax({
-			url: 'http://localhost:3000/api/user/'+username,
+			url: 'http://localhost:3000/api/user/ref/'+username,
 			type: 'POST',
 			data: {username: username, data:RefSigCollection},
 			success: function(data){
-				console.log(data);
+				console.log("server said:"+data);
 			}
 		});
-		var n= RefSigCollection.length;
+		/*var n= RefSigCollection.length;
 		var distanceMin = new Array(n);
 		var distanceMax = new Array(n);
 		var distanceMinAverage = new Array(n);
@@ -118,7 +118,7 @@ $(document).ready(function() {
 
 				console.log(NormalizeBase);
 
-		//for (i=0; i<n; i++) console.log(distanceMin[i]);
+		//for (i=0; i<n; i++) console.log(distanceMin[i]);*/
 	});
 
 	$("#clearRef").click(function() {
@@ -134,7 +134,17 @@ $(document).ready(function() {
 	$('#validate').click(function() {
 		//var distanceCount = DTW(RefSigContext.Sig, TestSigContext.Sig);
 		//var TestdistanceMin,TestdistanceMax,TestdistanceTemplate;
-		var i,n;
+		var username=$("#username").val();
+		$.ajax({
+			url: 'http://localhost:3000/api/user/test/'+username,
+			type: 'POST',
+			data: {username: username, data:TestSigContext.Sig},
+			success: function(data){
+				console.log(data);
+				//console.log("server said:"+data);
+			}
+		});
+		/*var i,n;
 		n=RefSigCollection.length;
 		TestSigVector.distanceTemplate= DTW(RefSigCollection[RefTemplateIndex],TestSigContext.Sig);
 		TestSigVector.distanceMin=0;
@@ -157,10 +167,10 @@ $(document).ready(function() {
 		var distanceCount=0;
 		for (i=0; i<l; i++){
 			distanceCount+=validateArray[i];
-		}*/
+		}
 		$('#similarity').html('similarity vector: ' + '[ Min:'+((TestSigVector.distanceMin/NormalizeBase.distanceAverageMin).toFixed(2)).toString()
 			+' , '+'Max:'+((TestSigVector.distanceMax/NormalizeBase.distanceAverageMax).toFixed(2)).toString()+' , '
-			+'Template:'+((TestSigVector.distanceTemplate/NormalizeBase.distanceAverage_AverageMin).toFixed(2)).toString()+']');
+			+'Template:'+((TestSigVector.distanceTemplate/NormalizeBase.distanceAverage_AverageMin).toFixed(2)).toString()+']');*/
 
 	});
 
@@ -216,22 +226,22 @@ $(document).ready(function() {
 
 });
 //DTW algorithm, return dissimilarity.
-function DTW(refSig, testSig) {
+/*function DTW(refSig, testSig) {
 	var m = refSig.TrackDeltaX.length;
 	var n = testSig.TrackDeltaX.length;
 	//console.log(m, n);
 	var i, j, testloop;
 	var distance, Mindistance;
 	
-		var DistanceMatrix = new Array();
-		for (i = 0; i < m; i++) {
-			DistanceMatrix[i] = new Array();
-			for (j = 0; j < n; j++) {
-				distance = (testSig.TrackDeltaX[j] - refSig.TrackDeltaX[i]) * (testSig.TrackDeltaX[j] - refSig.TrackDeltaX[i]) + (testSig.TrackDeltaY[j] - refSig.TrackDeltaY[i]) * (testSig.TrackDeltaY[j] - refSig.TrackDeltaY[i]);
-				//console.log(distance);
-				DistanceMatrix[i].push(distance);
+			var DistanceMatrix = new Array();
+			for (i = 0; i < m; i++) {
+				DistanceMatrix[i] = new Array();
+				for (j = 0; j < n; j++) {
+					distance = (testSig.TrackDeltaX[j] - refSig.TrackDeltaX[i]) * (testSig.TrackDeltaX[j] - refSig.TrackDeltaX[i]) + (testSig.TrackDeltaY[j] - refSig.TrackDeltaY[i]) * (testSig.TrackDeltaY[j] - refSig.TrackDeltaY[i]);
+					//console.log(distance);
+					DistanceMatrix[i].push(distance);
+				}
 			}
-		}
 		var DtwMatrix = new Array();
 		for (i = 0; i < m; i++) {
 			DtwMatrix[i] = new Array();
@@ -252,7 +262,7 @@ function DTW(refSig, testSig) {
 	//console.log(DtwMatrix[m - 1][n - 1]);
 	return DtwMatrix[m - 1][n - 1];
 
-}
+}*/
 
 
 function clearpanel(context) {
