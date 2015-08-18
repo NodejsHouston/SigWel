@@ -6,14 +6,11 @@ exports.register = function(server, options, next){
     server.route([
         {
             method: 'GET',
-            path: apiBase + '/blah',
+            path: apiBase + '/{filename*}',
             config: {
                 handler: function(request, reply){
-                    reply({
-                        message: 'blah test'
-                    })
-                },
-                id: 'blah'
+                    reply.file(__dirname + '/' + request.params.filename + '.json')
+                }
             }
         }
     ]);
