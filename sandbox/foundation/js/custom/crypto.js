@@ -6,8 +6,9 @@ var crypto = require('crypto'),
 	fs = require('fs');
 
 function Crypto(key) {
-	if(key != undefined)
+	if(key != undefined) {
 		this.password = key;
+	}
 }
 
 
