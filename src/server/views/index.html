@@ -18,16 +18,18 @@
                 <form>
                 <div class="row">
                   <div class="large-6 columns">
-                    <input type="text" placeholder="Your legal name" required/>
+                    <input id="refuser" type="text" placeholder="Your legal name" required/>
                   </div>
                   <div class="large-6 columns">
-                    <input type="email" placeholder="Your email address" required/>
+                    <input id="refemail" type="email" placeholder="Your email address" required/>
                   </div>
                 </div>
                 <div class="row">
                   <div class="large-12 columns">
                     <p>Draw one or more of your signature with <strong>your mouse, tablet or smartphone</strong> for more accurracy.</p>
+                    <div id="RefContainer">
                     <canvas id="RefSigCanvas" width=610 height=275></canvas>
+                    </div>
                   </div>
                 </div>
                 <div class="row">
@@ -40,6 +42,9 @@
                   <div class="large-4 columns">   
                     <a class="small button" id="RefSubmit" >Submit All</a>
                   </div>
+                  <div class="large-12 columns">
+                    <div id="foundation-alerts1"></div>
+                  </div>
                 </div>
               </form>
             </section>
@@ -48,16 +53,18 @@
               <form>
                 <div class="row">
                   <div class="large-6 columns">
-                    <input type="text" placeholder="Your legal name" required/>
+                    <input id="testuser" type="text" placeholder="Your legal name" required/>
                   </div>
                   <div class="large-6 columns">
-                    <input type="email" placeholder="Your email address" required/>
+                    <input id="testemail" type="email" placeholder="Your email address" required/>
                   </div>
                 </div>
                 <div class="row">  
                   <div class="large-12 columns">
                    <p>Draw your signature with <strong>your mouse, tablet or smartphone.</strong></p>
+                   <div id="TestContainer">
                    <canvas id="TestSigCanvas" width=610 height=275></canvas>
+                   </div>
                   </div>
                 </div>               
                 <div class="row">
@@ -68,7 +75,7 @@
                     <a class="small button" id="validate"> Validate </a>
                   </div>
                   <div class="large-12 columns">
-                    <div id="foundation-alerts"></div>
+                    <div id="foundation-alerts2"></div>
                   </div>
                 </div>
                 </form>

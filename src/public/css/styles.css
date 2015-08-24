@@ -2,10 +2,24 @@ canvas{
   border:solid 1px #ccc;
   cursor:pointer;
   background-color: #FFF;
-  width: 610px;
-  height: 275px;
+  width: 100%;
+  height: auto;
 }
 label{
   margin-bottom: 5px;
   padding: 5px;
+}
+
+#RefContainer{
+	display:block;
+    width:100%;
+    
+    height:300px;
+}
+
+#TestContainer{
+	display:block;
+    width:100%;
+    
+    height:300px;
 }

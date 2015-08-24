@@ -2,9 +2,13 @@
 * Dependencies.
 */
 var Hapi = require('hapi');
-
+//Load Mongo driver...
+var mongoose = require('mongoose');
 // Create a new server
 var server = new Hapi.Server();
+
+//Connect to MongoDBLab instance...
+mongoose.connect("mongodb://sigwel:NhSwDb@ds029803.mongolab.com:29803/sigweldb");
 
 // Setup the server with a host and port
 server.connection({
