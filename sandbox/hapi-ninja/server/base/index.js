@@ -81,8 +81,8 @@ exports.register = function (server, options, next) {
             config: {
                 handler: function (request, reply) {
                     // Render the view with the custom greeting
-                    reply.view('index', {
-                        title: 'Awesome Boilerplate Homepage'
+                    reply.view('index2', {
+                        
                     });
                 },
                 id: 'index'

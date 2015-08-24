@@ -29,7 +29,7 @@ exports.register = function (server, options, next) {
             path: '/css/{path*}',
             config: {
                 handler: {
-                    directory: { path: './../../foundation/css' }
+                    directory: { path: './../foundation/css' }
                 },
                 id: 'css'
             }
@@ -39,7 +39,7 @@ exports.register = function (server, options, next) {
             path: '/js/{path*}',
             config: {
                 handler: {
-                    directory: { path: './../../foundation/js' }
+                    directory: { path: './../foundation/js' }
                 },
                 id: 'js'
             }
