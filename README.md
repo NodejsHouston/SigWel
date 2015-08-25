@@ -5,6 +5,9 @@ Signature Validator App
 ## Purpose Statement
  - Make a tool that validates signatures of a user by tracking the pattern of the signatures.
 
+## Demo
+The demo app is hosted on [Heroku](https://sigwel.herokuapp.com), welcome to have a try!
+
 ## Collaborating
 The project is being organized on [Trello](https://trello.com/b/jikk5lqR/sigwel), discussion happens on [Slack](https://nodejshouston.slack.com/messages/code-sigwel/), and documentation are defined in the README files.
 
