@@ -86,7 +86,7 @@ $(document).ready(function() {
 		//submit user information and reference signature using post method
 		//TODO, ip address should be setted in configration file
 		$.ajax({
-			url: "http://10.9.12.162:3000/api/user/ref/" + username,
+			url: "http://sigwel.herokuapp.com/api/user/ref/" + username,
 			type: 'POST',
 			data: {
 				username: username,
@@ -136,7 +136,7 @@ $(document).ready(function() {
 		//Submit test signature of user to compare with reference signature stored in database
 		//TODO, ip address should be setted in configration file
 		$.ajax({
-			url: "http://10.9.12.162:3000/api/user/test/" + username,
+			url: "http://sigwel.herokuapp.com/api/user/test/" + username,
 			type: 'POST',
 			data: {
 				username: username,
