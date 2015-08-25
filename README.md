@@ -10,6 +10,7 @@ The demo app is hosted on [Heroku](http://sigwel.herokuapp.com), welcome to have
 
 ## Collaborating&Collaborators
 The project is being organized on [Trello](https://trello.com/b/jikk5lqR/sigwel), discussion happens on [Slack](https://nodejshouston.slack.com/messages/code-sigwel/), and documentation are defined in the README files.
+
 Collaborators:
 - Jeffry Tupa (Give the idea of the project and develop frond-end part)
 - Keith Stewart (Organize code based on hapi-ninja Boilerplate, which built by Saul, thanks)
