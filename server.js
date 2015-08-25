@@ -12,7 +12,7 @@ mongoose.connect("mongodb://sigwel:NhSwDb@ds029803.mongolab.com:29803/sigweldb")
 
 // Setup the server with a host and port
 server.connection({
-    port: parseInt(process.env.PORT, 10) || 3000,
+    port: parseInt(process.env.PORT, 10) || 80,
     host: '0.0.0.0'
 });
 
@@ -45,7 +45,7 @@ server.register([
     // },
     {
         register: require("hapi-assets"),
-        options: require('./assets.js')
+        options: require('./src/assets.js')
     },
     {
         register: require("hapi-named-routes")
@@ -54,13 +54,13 @@ server.register([
         register: require("hapi-cache-buster")
     },
     {
-        register: require('./server/assets/index.js')
+        register: require('./src/server/assets/index.js')
     },
     {
-        register: require('./server/base/index.js')
+        register: require('./src/server/base/index.js')
     },
     {
-        register: require('./server/api/index.js')
+        register: require('./src/server/api/index.js')
     }
 ], function () {
     //Start the server
