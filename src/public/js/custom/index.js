@@ -100,6 +100,7 @@ $(document).ready(function() {
 				else
 					isSuccessful = 'alert';
 				showMessage('#foundation-alerts1',data.message, isSuccessful);
+				RefSigCollection = new Array();
 			}
 		});
 
