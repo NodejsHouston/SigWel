@@ -23,7 +23,8 @@ vector.prototype.Deduplication = function(){
                 
                 else{
                 err={};
-                err.message="item is not array type";
+
+                err.message="item is not array type "+rawdata[i].toString();
                 }
 
             }
