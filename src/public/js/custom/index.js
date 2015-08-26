@@ -101,6 +101,7 @@ $(document).ready(function() {
 					isSuccessful = 'alert';
 				showMessage('#foundation-alerts1',data.message, isSuccessful);
 				RefSigCollection = new Array();
+				clearpanel(RefSigContext);
 			}
 		});
 
