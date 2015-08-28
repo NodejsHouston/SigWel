@@ -17,7 +17,6 @@ var RefCanvas = $("#RefSigCanvas"),
 //var RefsigOutline = new Image();
 //var TestsigOutline = new Image();
 
-
 function signature() {
 	this.TrackX = new Array();
 	this.TrackY = new Array();
@@ -45,19 +44,7 @@ BigsigOutline.src = '/images/signature-big.jpg';
 SmallsigOutline.src = '/images/signature-small.jpg';
 $(document).ready(function() {
 
-	//sigOutline.src = '/images/signature-big.jpg';
-	//Make canvas responsive
-	/*RefsigOutline.onload = function() {
-	console.log("rf");
-	RefSigContext.drawImage(RefsigOutline, RefSigContext.canvas.width*0.10, RefSigContext.canvas.height*0.25);
-};
-
-	TestsigOutline.onload = function() {
-	TestSigContext.drawImage(TestsigOutline, TestSigContext.canvas.width*0.10, TestSigContext.canvas.height*0.25);
-};*/
-/*sigOutline.onload = function() {
 	
-};*/
 
 	$(window).resize(responsive);
 	responsive();
@@ -86,7 +73,7 @@ $(document).ready(function() {
 		//submit user information and reference signature using post method
 		//TODO, ip address should be setted in configration file
 		$.ajax({
-			url: "http://sigwel.herokuapp.com/api/user/ref/" + username,
+			url: "https://sigwel.herokuapp.com/api/user/ref/" + username,
 			type: 'POST',
 			data: {
 				username: username,
@@ -139,7 +126,7 @@ $(document).ready(function() {
 		//Submit test signature of user to compare with reference signature stored in database
 		//TODO, ip address should be setted in configration file
 		$.ajax({
-			url: "http://sigwel.herokuapp.com/api/user/test/" + username,
+			url: "https://sigwel.herokuapp.com/api/user/test/" + username,
 			type: 'POST',
 			data: {
 				username: username,

@@ -4,17 +4,27 @@
 var Hapi = require('hapi');
 //Load Mongo driver...
 var mongoose = require('mongoose');
+
+var config = require('./src/config');
 // Create a new server
+
+
 var server = new Hapi.Server();
 
 //Connect to MongoDBLab instance...
-mongoose.connect("mongodb://sigwel:NhSwDb@ds029803.mongolab.com:29803/sigweldb");
+mongoose.connect(config.db.connection);
 
 // Setup the server with a host and port
 server.connection({
-    port: parseInt(process.env.PORT, 10) || 80,
-    host: '0.0.0.0'
+    port: parseInt(process.env.PORT, 10) || config.https.port,
+    host: '0.0.0.0',
+    tls: {
+        key: config.https.key,
+        cert: config.https.cert
+    }
 });
+
+
 
 // Setup the views engine and folder
 server.views({
