@@ -5,8 +5,19 @@ Signature Validator App
 ## Purpose Statement
  - Make a tool that validates signatures of a user by tracking the pattern of the signatures.
 
-## Collaborating
+## Demo
+The demo app is hosted on [Heroku](http://sigwel.herokuapp.com), welcome to have a try!
+
+## Collaborating&Collaborators
 The project is being organized on [Trello](https://trello.com/b/jikk5lqR/sigwel), discussion happens on [Slack](https://nodejshouston.slack.com/messages/code-sigwel/), and documentation are defined in the README files.
+
+###Collaborators:
+- Jeffry Tupa  (Give the idea of the project and develop frond-end part)
+- Keith Stewart  (Organize code based on hapi-ninja Boilerplate, which built by Saul, thanks)
+- Zhaoxin Sun  (Do back-end part, mainly on api and validation algorithm)
+- Sid Pareek  (Give lots of idea on requiments of the project)
+- Ilmo Jung  (Focus on security of the project)
+- Saul Maddox , Alan Lee  (Always help us out when we have technical quesions)
 
 ## Project outline
 - Sandbox folder for prototyping
