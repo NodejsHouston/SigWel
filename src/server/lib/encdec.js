@@ -1,40 +1,34 @@
-// reference:   https://github.com/chris-rock/node-crypto-examples
-
-var crypto = require('crypto'),
-    algorithm = 'aes-256-ctr',
-    password = 'S1gW@1Passw0rd', // Sig proj specific
-	fs = require('fs');
+var crypto = require('crypto');
+var encryption_key = "SigWel@Encrypt1onK@Y3333"; //192bits
+var iv = "1234aaaa"; //64bits
 
 function Crypto(key) {
 	if(key != undefined) {
-		this.password = key;
+		this.iv = key;
 	}
 }
-
-function encryptstream(stream) {
-	var encryptor = crypto.createCipher(algorithm, password);
-	return stream.pipe(encryptor);
+function encrypt(obj){
+	var str = JSON.stringify(obj);
+	var cipher = crypto.createCipheriv('des-ede3-cbc', encryption_key, iv);
+	var ciph = cipher.update(str, 'utf8', 'base64');
+	ciph += cipher.final('base64');
+	return ciph;
 }
 
-function decryptstream(stream) {
-	var decryptor = crypto.createDecipher(algorithm, password);
-	return stream.pipe(decryptor);
+function decrypt(obj){
+	str = JSON.stringify(obj);
+	var decipher = crypto.createDecipheriv('des-ede3-cbc', encryption_key, iv);
+	var txt = decipher.update(str, 'base64', 'utf8');
+	txt += decipher.final('utf8');
+	return JSON.parse(txt);
 }
 
-function encrypt(buffer){
-	  var cipher = crypto.createCipher(algorithm,password)
-		    var crypted = Buffer.concat([cipher.update(buffer),cipher.final()]);
-	    return crypted;
+function test(){
+	var o1 = ['A', 123, '456']
+	var o2 = encrypt(o1);	
+	var o3 = decrypt(o2);
+	console.log(o1 + " --> " + o2 + " --> " + o3);
 }
- 
-function decrypt(buffer){
-	  var decipher = crypto.createDecipher(algorithm,password)
-		    var dec = Buffer.concat([decipher.update(buffer) , decipher.final()]);
-	    return dec;
-}
-Crypto.prototype.EncryptStream = encryptstream;
-Crypto.prototype.DecryptStream = decryptstream;
-
 Crypto.prototype.Encrypt = encrypt;
 Crypto.prototype.Decrypt = decrypt;
 module.exports = Crypto;
