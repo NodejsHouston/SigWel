@@ -24,7 +24,16 @@ server.connection({
     }
 );
 
+ server.ext('onRequest', function (request, reply) {
 
+   if (request.headers['x-forwarded-proto'] === 'http') {
+   
+      //console.log(request.headers.host, request.url.path);
+      return reply.redirect('https://'+request.headers.host+request.url.path).code(301);
+    //}
+    }
+   reply.continue();
+});
 
 // Setup the views engine and folder
 server.views({
@@ -66,9 +75,13 @@ server.register([
     {
         register: require('./src/server/assets/index.js')
     },
+    // {
+    //     register: require('./src/server/api/preRequest.js')
+    // },
     {
         register: require('./src/server/base/index.js')
     },
+
     {
         register: require('./src/server/api/index.js')
     }
