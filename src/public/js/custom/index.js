@@ -1,32 +1,48 @@
 /* Prepare our canvas area */
-var RefSigContext = document.getElementById('RefSigCanvas').getContext("2d")
-  , TestSigContext = document.getElementById('TestSigCanvas').getContext("2d")
-  , sigOutline = new Image()
-  , context = null
-  , RefSigCollection = new Array() 
-  , validateArray = new Array()
-  , NormalizeBase = {}
-  , TestSigVector = {};
+var RefCanvas = $("#RefSigCanvas"),
+	TestCanvas = $("#TestSigCanvas"),
+	//GET this two canvas DOM object for canvas touch operation
+	refcanvas = document.getElementById("RefSigCanvas"),
+	testcanvas = document.getElementById("TestSigCanvas"),
+	RefSigContext = $(RefCanvas).get(0).getContext("2d"),
+	TestSigContext = $(TestCanvas).get(0).getContext("2d"),
+	RefContainer = $(RefCanvas).parent(),
+	TestContainer = $(TestCanvas).parent(),
+	BigsigOutline = new Image(),
+	SmallsigOutline = new Image(),
+	context = null,
+	RefSigCollection = new Array(),
+	validateArray = new Array();
 
-sigOutline.onload = function() {
-	RefSigContext.drawImage(sigOutline, 69, 50);
-	TestSigContext.drawImage(sigOutline, 69, 50);
-};
+//var RefsigOutline = new Image();
+//var TestsigOutline = new Image();
 
-sigOutline.src = '/images/signature-big.jpg';
 
 function signature() {
 	this.TrackX = new Array();
 	this.TrackY = new Array();
 	this.TrackDrag = new Array();
-	this.TrackDeltaX = new Array();
-	this.TrackDeltaY = new Array();
-	this.OldX = -1;
-	this.OldY = -1;
-	this.xLength = 0;
-	this.yLength = 0;
+	//this.TrackDeltaX = new Array();
+	//this.TrackDeltaY = new Array();
+	//this.OldX = -1;
+	//this.OldY = -1;
+	//this.xLength = 0;
+	//this.yLength = 0;
 }
 
+
+BigsigOutline.onload=function(){
+	if(RefSigContext.canvas.width>520)
+		RefSigContext.drawImage(BigsigOutline, RefSigContext.canvas.width*0.1, RefSigContext.canvas.height*0.4);
+};
+
+SmallsigOutline.onload = function(){
+	if(RefSigContext.canvas.width<=520)
+		RefSigContext.drawImage(SmallsigOutline, RefSigContext.canvas.width*0.1, RefSigContext.canvas.height*0.55);
+
+};
+BigsigOutline.src = '/images/signature-big.jpg';
+SmallsigOutline.src = '/images/signature-small.jpg';
 $(document).ready(function() {
 	
 	var urlLink = "http://localhost:3000/api/users";
@@ -39,92 +55,74 @@ $(document).ready(function() {
     $( "#panel2-1" ).append( html );
   });
 
+	//sigOutline.src = '/images/signature-big.jpg';
+	//Make canvas responsive
+	/*RefsigOutline.onload = function() {
+	console.log("rf");
+	RefSigContext.drawImage(RefsigOutline, RefSigContext.canvas.width*0.10, RefSigContext.canvas.height*0.25);
+};
+
+	TestsigOutline.onload = function() {
+	TestSigContext.drawImage(TestsigOutline, TestSigContext.canvas.width*0.10, TestSigContext.canvas.height*0.25);
+};*/
+/*sigOutline.onload = function() {
+	
+};*/
+
+	$(window).resize(responsive);
+	responsive();
+	//redraw(RefSigContext);
+
 	RefSigContext.Sig = new signature();
 	TestSigContext.Sig = new signature();
 	RefSigContext.paint = false;
 	TestSigContext.paint = false;
 	var RefTemplateDistance;
 	var RefTemplateIndex;
-	//RefSigCanvas.width=RefSigCanvas.style.width;
-	//TestSigCanvas.width=TestSigCanvas.style.width;
-	//console.log(RefSigCanvas.style.width.toString());
 
-	$("#Nextone").click(function(){
-		if(RefSigContext.Sig){
-		RefSigCollection.push(RefSigContext.Sig);
-		clearpanel(context);
-		RefSigContext.Sig=new signature();
+	$("#Nextone").click(function() {
+		if (RefSigContext.Sig) {
+			RefSigCollection.push(RefSigContext.Sig);
+			clearpanel(RefSigContext);
+			RefSigContext.Sig = new signature();
 		}
 
 	});
 
-	$("#RefSubmit").click(function(){
+	$("#RefSubmit").click(function() {
 		RefSigCollection.push(RefSigContext.Sig);
-		var n= RefSigCollection.length;
-		var distanceMin = new Array(n);
-		var distanceMax = new Array(n);
-		var distanceMinAverage = new Array(n);
-		
-
-		var i,j;
-		for (i=0; i<n; i++){ 
-			distanceMin[i]=0;
-			distanceMax[i]=0;
-		}
-		for (i=0; i<n-1; i++){
-			for(j=i+1 ; j<=n-1;j++){
-				var distance = DTW(RefSigCollection[i],RefSigCollection[j]);
-				console.log(distance);
-
-				if(distance<distanceMin[i]||distanceMin[i]==0)
-					distanceMin[i]=distance;
-				if(distance<distanceMin[j]||distanceMin[j]==0)
-					distanceMin[j]=distance;
-				
-				if(distance>distanceMax[i]||distanceMax[i]==0)
-					distanceMax[i]=distance;
-				if(distance>distanceMax[j]||distanceMax[j]==0)
-					distanceMax[j]=distance;
-
-				distanceMinAverage[i]+=distance;
-				distanceMinAverage[j]+=distance;
-				
+		var username = $("#refuser").val();
+		var email = $("#refemail").val();
+		//submit user information and reference signature using post method
+		//TODO, ip address should be setted in configration file
+		$.ajax({
+			url: "http://10.9.12.162:3000/api/user/ref/" + username,
+			type: 'POST',
+			data: {
+				username: username,
+				email: email,
+				data: RefSigCollection
+			},
+			success: function(data) {
+				var isSuccessful
+				if(data.type)
+					isSuccessful = 'success';
+				else
+					isSuccessful = 'alert';
+				showMessage('#foundation-alerts1',data.message, isSuccessful);
 			}
-			
-		}
-				var distanceSumMin=0; distanceSumMax=0;
-				for (i=0;i<n;i++){
-					
-					console.log(distanceMin[i],distanceMax[i]);
-					distanceSumMin+=distanceMin[i];
-					distanceSumMax+=distanceMax[i];
+		});
 
-				}
-				//console.log(distanceSumMin,distanceSumMax);
-				NormalizeBase.distanceAverageMin= distanceSumMin / n;
-				NormalizeBase.distanceAverageMax= distanceSumMax / n;
+	});
 
+	$("#panel2-1").on("toggled", function() {
+		console.log("tab1");
+		responsive();
+	});
 
-
-				RefTemplatePoint=distanceMinAverage[0];
-				RefTemplateIndex=0;
-				for (i=1; i<n;i++){
-					if(distanceMinAverage[i]<RefTemplatePoint){
-						RefTemplatePoint=distanceMinAverage;
-						RefTemplateIndex=i;	
-					}
-				}
-				var distanceSumMinAverage=0;
-				for (i=0;i<n;i++){
-					
-					distanceSumMinAverage+=DTW(RefSigCollection[i],RefSigCollection[RefTemplateIndex]);
-
-				}
-				NormalizeBase.distanceAverage_AverageMin= distanceSumMinAverage / (n-1);
-
-				console.log(NormalizeBase);
-
-		//for (i=0; i<n; i++) console.log(distanceMin[i]);
+	$("#panel2-2").on("toggled", function() {
+		responsive();
+		console.log("tab2");
 	});
 
 	$("#clearRef").click(function() {
@@ -139,43 +137,52 @@ $(document).ready(function() {
 	});
 
 	/* Validate signature
-	* pass validation if the sum of the vectors are with in range of 1.5 to 6 
-	* or else fail. */
+	 * pass validation if the sum of the vectors are with in range of 1.5 to 6 
+	 * or else fail. */
 	$('#validate').click(function() {
-		//var distanceCount = DTW(RefSigContext.Sig, TestSigContext.Sig);
-		//var TestdistanceMin,TestdistanceMax,TestdistanceTemplate;
-		var i,n;
-		n=RefSigCollection.length;
-		TestSigVector.distanceTemplate= DTW(RefSigCollection[RefTemplateIndex],TestSigContext.Sig);
-		TestSigVector.distanceMin=0;
-		TestSigVector.distanceMax=0;
-		for (i=0; i<n; i++){
-			var temp = DTW(RefSigCollection[i],TestSigContext.Sig);
-			if (temp<TestSigVector.distanceMin || TestSigVector.distanceMin==0) 
-				TestSigVector.distanceMin=temp;
-			if (temp>TestSigVector.distanceMax || TestSigVector.distanceMin==0)
-				TestSigVector.distanceMax=temp;
-		}
-		console.log(TestSigVector);
-		console.log("similarity rate is:");
-		console.log(TestSigVector.distanceMin/NormalizeBase.distanceAverageMin,TestSigVector.distanceMax/NormalizeBase.distanceAverageMax,TestSigVector.distanceTemplate/NormalizeBase.distanceAverage_AverageMin);
+		
+		var username = $("#testuser").val();
+		var email = $("#testemail").val();
+		//Submit test signature of user to compare with reference signature stored in database
+		//TODO, ip address should be setted in configration file
+		$.ajax({
+			url: "http://10.9.12.162:3000/api/user/test/" + username,
+			type: 'POST',
+			data: {
+				username: username,
+				email: email,
+				data: TestSigContext.Sig
+			},
+			success: function(data) {
+				var isSuccessful;
+				if(data.Similarity){
+				if(data.type){
+					isSuccessful = 'success';
+					data.message = 'similarity vector: ' + '[ Min:' + data.Similarity.Min.toFixed(2) + ' , ' + 'Max:' + data.Similarity.Max.toFixed(2) + ' , ' + 'Template:' + data.Similarity.Template.toFixed(2) + ']'
+									+ '  You are accepted! Congratulations!' ;
+				}
+				else{
+					isSuccessful = 'alert';
+					data.message = 'similarity vector: ' + '[ Min:' + data.Similarity.Min.toFixed(2) + ' , ' + 'Max:' + data.Similarity.Max.toFixed(2) + ' , ' + 'Template:' + data.Similarity.Template.toFixed(2) + ']'
+									+'  You are rejected! Please try again!';
+				}
+			}
+				else if(data.type)
+					isSuccessful = 'success';
+				else
+					isSuccessful = 'alert';
+				showMessage('#foundation-alerts2',data.message, isSuccessful);
+				
+			}
+		});
 
-		/*var l= validateArray.length;
-		var distanceCount=0;
-		for (i=0; i<l; i++){
-			distanceCount+=validateArray[i];
-		}*/
-		var similarityVectorSum = TestSigVector.distanceMin/NormalizeBase.distanceAverageMin + TestSigVector.distanceMax/NormalizeBase.distanceAverageMax + TestSigVector.distanceTemplate/NormalizeBase.distanceAverage_AverageMin
-		, message = 'similarity vector: ' + '[ Min:'+((TestSigVector.distanceMin/NormalizeBase.distanceAverageMin).toFixed(2)).toString()
-			+' , '+'Max:'+((TestSigVector.distanceMax/NormalizeBase.distanceAverageMax).toFixed(2)).toString()+' , '
-			+'Template:'+((TestSigVector.distanceTemplate/NormalizeBase.distanceAverage_AverageMin).toFixed(2)).toString()+']'
-		, type = (similarityVectorSum > 1.5 && similarityVectorSum < 6 ? "success" :"alert");
-		showMessage(message, type);
+
+
 	});
 
 	/* MOUSEDOWN: When the user clicks on canvas we record the position in an array via 
-	*  the addClick function. We set the boolean paint to true. 
-	*  Finally we update the canvas with the function redraw.*/
+	 *  the addClick function. We set the boolean paint to true. 
+	 *  Finally we update the canvas with the function redraw.*/
 	$('canvas').mousedown(function(e) {
 		var offset = $(this).offset();
 		var context = null;
@@ -189,13 +196,12 @@ $(document).ready(function() {
 
 		context.paint = true;
 		addClick(Math.floor(e.pageX - offset.left), Math.floor(e.pageY - offset.top), false, context);
-		//addClick(Math.floor(e.pageX - this.offsetLeft), Math.floor(e.pageY - this.offsetTop), false, context);
-		//console.log(Math.floor(e.pageX - offset.left), Math.floor(e.pageY - offset.top));
+		
 		redraw(context);
 	});
 
 	/* MOUSEMOVE: Draw on the canvas when our user is pressing down.
-	*  If paint is true, then we record the value. Then redraw.*/
+	 *  If paint is true, then we record the value. Then redraw.*/
 	$('canvas').mousemove(function(e) {
 		var offset = $(this).offset();
 		if ($(e.target).attr("id") == 'RefSigCanvas') {
@@ -206,8 +212,7 @@ $(document).ready(function() {
 
 		if (context.paint) {
 			addClick(Math.floor(e.pageX - offset.left), Math.floor(e.pageY - offset.top), true, context);
-			//addClick(Math.floor(e.pageX - this.offsetLeft), Math.floor(e.pageY - this.offsetTop), true, context);
-			//console.log(Math.floor(e.pageX - offset.left), Math.floor(e.pageY - offset.top));
+			
 			redraw(context);
 		}
 	});
@@ -222,104 +227,124 @@ $(document).ready(function() {
 		context.paint = false;
 	});
 
+	//Almost same operation transplanted from mouse operation to touch operation
+	//For reference signature canvas
+	refcanvas.addEventListener("touchstart", function(e) {
+		e.preventDefault();
+		var offset = $(this).offset();
+		RefSigContext.paint = true;
+		addClick(Math.floor(e.touches[0].pageX - offset.left), Math.floor(e.touches[0].pageY - offset.top), false, RefSigContext);
+		redraw(RefSigContext);
+	}, false);
+	
+	refcanvas.addEventListener("touchmove", function(e) {
+		e.preventDefault();
+		var offset = $(this).offset();
+		if (RefSigContext.paint) {
+			addClick(Math.floor(e.touches[0].pageX - offset.left), Math.floor(e.touches[0].pageY - offset.top), true, RefSigContext);
+			redraw(RefSigContext);
+		}
+	}, false);
+	
+	refcanvas.addEventListener("touchend", function(e) {
+		RefSigContext.paint = false;
+	}, false);
+
+	//For test signature canvas
+	testcanvas.addEventListener("touchstart", function(e) {
+		e.preventDefault();
+		var offset = $(this).offset();
+		TestSigContext.paint = true;
+		addClick(Math.floor(e.touches[0].pageX - offset.left), Math.floor(e.touches[0].pageY - offset.top), false, TestSigContext);
+		redraw(TestSigContext);
+	}, false);
+	
+	testcanvas.addEventListener("touchmove", function(e) {
+		e.preventDefault();
+		var offset = $(this).offset();
+		if (TestSigContext.paint) {
+			addClick(Math.floor(e.touches[0].pageX - offset.left), Math.floor(e.touches[0].pageY - offset.top), true, TestSigContext);
+			redraw(TestSigContext);
+		}
+	}, false);
+	
+	testcanvas.addEventListener("touchend", function(e) {
+		TestSigContext.paint = false;
+	}, false);
 
 });
-//DTW algorithm, return dissimilarity.
-function DTW(refSig, testSig) {
-	var m = refSig.TrackDeltaX.length;
-	var n = testSig.TrackDeltaX.length;
-	//console.log(m, n);
-	var i, j, testloop;
-	var distance, Mindistance;
-	
-		var DistanceMatrix = new Array();
-		for (i = 0; i < m; i++) {
-			DistanceMatrix[i] = new Array();
-			for (j = 0; j < n; j++) {
-				distance = (testSig.TrackDeltaX[j] - refSig.TrackDeltaX[i]) * (testSig.TrackDeltaX[j] - refSig.TrackDeltaX[i]) + (testSig.TrackDeltaY[j] - refSig.TrackDeltaY[i]) * (testSig.TrackDeltaY[j] - refSig.TrackDeltaY[i]);
-				//console.log(distance);
-				DistanceMatrix[i].push(distance);
-			}
-		}
-		var DtwMatrix = new Array();
-		for (i = 0; i < m; i++) {
-			DtwMatrix[i] = new Array();
-			for (j = 0; j < n; j++) {
-				if (i == 0 && j == 0)
-					Mindistance = DistanceMatrix[0][0];
-				else if (i == 0)
-					Mindistance = DtwMatrix[i][j - 1] + DistanceMatrix[i][j];
-				else if (j == 0)
-					Mindistance = DtwMatrix[i - 1][j] + DistanceMatrix[i][j];
-				else
-					Mindistance = Math.min(DtwMatrix[i][j - 1], DtwMatrix[i - 1][j], DtwMatrix[i - 1][j - 1]) + DistanceMatrix[i][j];
-				DtwMatrix[i].push(Mindistance);
 
-			}
-		}
-	
-	//console.log(DtwMatrix[m - 1][n - 1]);
-	return DtwMatrix[m - 1][n - 1];
 
-}
 
 
 function clearpanel(context) {
-	if(context){
-	context.clearRect(0, 0, context.canvas.width, context.canvas.height);
-	context.drawImage(sigOutline, 69, 50);
+
+	if (context) {
+		context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+		if(context.canvas.width<520)
+		context.drawImage(SmallsigOutline, context.canvas.width*0.10, context.canvas.height*0.55);
+		else
+		context.drawImage(BigsigOutline, context.canvas.width*0.10, context.canvas.height*0.4);
 	}
+	
 }
 
 
 /* Record the click position */
 function addClick(x, y, dragging, context) {
 	var sig = context.Sig;
-	if (sig.OldX != -1) {
-		if ((x - sig.OldX) != 0 || (y - sig.OldY) != 0) {
-			sig.TrackDeltaX.push(x - sig.OldX);
-
-			sig.TrackDeltaY.push(y - sig.OldY);
-		}
-		//console.log(x-sig.OldX, y - sig. OldY);
-	}
 	sig.TrackX.push(x);
 	sig.TrackY.push(y);
-	sig.OldX = x;
-	sig.OldY = y;
+
 	sig.TrackDrag.push(dragging);
 
 }
 
 /* Clear canvas and redraw signature path on the canvas */
 function redraw(context) {
+	
 	clearpanel(context); // Clears the canvas
-	context.drawImage(sigOutline, 69, 50);
+	//context.drawImage(sigOutline, 0, 0);
 	var sig = context.Sig;
 	context.strokeStyle = "#000";
 	context.lineJoin = "round";
+	if(context.canvas.width>520)
 	context.lineWidth = 4;
-
-	for (var i = 0; i < sig.TrackX.length; i++) {
-		context.beginPath();
-		if (sig.TrackDrag[i] && i) {
-			context.moveTo(sig.TrackX[i - 1], sig.TrackY[i - 1]);
-		} else {
-			context.moveTo(sig.TrackX[i] - 1, sig.TrackY[i]);
+	else
+	context.lineWidth = 1;
+	if (sig) {
+		for (var i = 0; i < sig.TrackX.length; i++) {
+			context.beginPath();
+			if (sig.TrackDrag[i] && i) {
+				context.moveTo(sig.TrackX[i - 1], sig.TrackY[i - 1]);
+			} else {
+				context.moveTo(sig.TrackX[i] - 1, sig.TrackY[i]);
+			}
+			context.lineTo(sig.TrackX[i], sig.TrackY[i]);
+			context.closePath();
+			context.stroke();
+			}
 		}
-		context.lineTo(sig.TrackX[i], sig.TrackY[i]);
-		context.closePath();
-		context.stroke();
-	}
+	
 }
 
 /* Display alert box with validation results */
-function showMessage(message, type) {
-    var alertMarkup = $('<div data-alert class="alert-box"><span></span><a href="#" class="close">&times;</a></div>');
-    alertMarkup.addClass(type);
-    alertMarkup.children("span").text(message);
-    $("#foundation-alerts").prepend(alertMarkup).foundation(
-        "alert",
-        undefined
-    );
+function showMessage(element, message, type) {
+	var alertMarkup = $('<div data-alert class="alert-box"><span></span><a href="#" class="close">&times;</a></div>');
+	alertMarkup.addClass(type);
+	alertMarkup.children("span").text(message);
+
+	$(element).empty().prepend(alertMarkup).foundation(
+		"alert",
+		undefined
+	);
+}
+
+//regulate canvas width when browser size change.
+function responsive() {
+	RefCanvas.attr('width', $(RefContainer).width());
+	TestCanvas.attr('width', $(TestContainer).width());
+	redraw(TestSigContext);
+	redraw(RefSigContext);
+
 }
