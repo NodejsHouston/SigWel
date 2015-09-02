@@ -14,12 +14,8 @@ exports.CreateUser = function (request,reply,data){
 	var newuser = new user({
 		Username: data.Username,
 		Email: crypto.Encrypt(data.Email),
-<<<<<<< HEAD
-		SigSet: data.Sigs,
-		NormalizeBase: data.NormalizeBase
-=======
 		Data: crypto.Encrypt(payload)		
->>>>>>> c8570c12a765544c94023690d90cae02a2d67c14
+
 	});
 	newuser.save(function(err){
 		if (err) {
@@ -32,21 +28,8 @@ exports.CreateUser = function (request,reply,data){
 	});
 };
 
-//DB read operation, read certain user's information from DB and send back to client
-<<<<<<< HEAD
-exports.FindUser = function(request,reply,data,fn){
-	var query = user.findOne({Username: data.Username, Email:crypto.Encrypt(data.Email)});
-	//var results;
-	query.exec(function(err,results){
-		if(err){
-			console.log('error reading');
-			reply({type:false, message:"Cannot read this user's information."});
-		}
-		result.Email = crypto.Decrypt(result.Email);
-		result.SigSet = crypto.Decrypt(JSON.parse(result.SigSet));
-		fn(results);
-		
-=======
+//DB read operation, read certain user's information from DB and send back to client	
+
 exports.FindUser = function(request,reply,data,fn){	
 	var email = crypto.Encrypt(data.Email);
 	var query = user.findOne({Username: data.Username, Email: email});	
@@ -64,6 +47,6 @@ exports.FindUser = function(request,reply,data,fn){
 			re.SigSet = payload.SigSet;			
 		}		
 		fn(re);
->>>>>>> c8570c12a765544c94023690d90cae02a2d67c14
+
 	});
 };	
