@@ -18,23 +18,24 @@ mongoose.connect(config.db.connection);
 server.connection({
     port: parseInt(process.env.PORT, 10) || config.http.port,
     host: '0.0.0.0',
+    
     // tls: {
     //     key: config.https.key,
     //     cert: config.https.cert
     }
 );
 
+if(process.env.NODE_ENV="production"){
  server.ext('onRequest', function (request, reply) {
 
    if (request.headers['x-forwarded-proto'] === 'http') {
    
-      //console.log(request.headers.host, request.url.path);
-      return reply.redirect('https://'+request.headers.host+request.url.path).code(301);
-    //}
+      return reply.code(400);
+    
     }
    reply.continue();
 });
-
+}
 // Setup the views engine and folder
 server.views({
     engines: {
