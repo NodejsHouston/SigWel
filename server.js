@@ -16,13 +16,13 @@ mongoose.connect(config.db.connection);
 
 // Setup the server with a host and port
 server.connection({
-    port: parseInt(process.env.PORT, 10) || config.https.port,
+    port: parseInt(process.env.PORT, 10) || config.http.port,
     host: '0.0.0.0',
-    tls: {
-        key: config.https.key,
-        cert: config.https.cert
+    // tls: {
+    //     key: config.https.key,
+    //     cert: config.https.cert
     }
-});
+);
 
 
 
