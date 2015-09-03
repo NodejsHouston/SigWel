@@ -4,7 +4,7 @@
 var Hapi = require('hapi');
 //Load Mongo driver...
 var mongoose = require('mongoose');
-
+var Boom = require('boom');
 var config = require('./src/config');
 // Create a new server
 
@@ -29,7 +29,7 @@ if (process.env.NODE_ENV = "production") {
 
         if (request.headers['x-forwarded-proto'] === 'http') {
 
-            return reply.code(400);
+            return reply(Boom.badRequest('HTTP Are Not Supported'));
 
         } else {
             reply.continue();
