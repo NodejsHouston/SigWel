@@ -125,10 +125,12 @@ $(document).ready(function() {
 
 		var username = $("#testuser").val();
 		var email = $("#testemail").val();
+		var host = $(location).attr('host');
+		var protocol = $(location).attr('protocol');
 		//Submit test signature of user to compare with reference signature stored in database
 		//TODO, ip address should be setted in configration file
 		$.ajax({
-			url: protocol+'//'+host+'/api/user/ref/'+ username,
+			url: protocol+'//'+host+'/api/user/test/'+ username,
 			type: 'POST',
 			data: {
 				username: username,

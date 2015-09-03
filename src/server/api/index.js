@@ -119,7 +119,9 @@ exports.register = function(server, options, next) {
                                 for (i = 0; i < RefSigSet.SigSet.length; i++) {
                                     refsigset.push(new Array());
                                     refsigset[i].push(RefSigSet.SigSet[i].deltaX);
+
                                     refsigset[i].push(RefSigSet.SigSet[i].deltaY);
+                                    //console.log(RefSigSet.SigSet[i].deltaY);
                                 }
                                 var Similarity = util.OneToCollection(testSig.GetValue(), refsigset, RefSigSet.NormalizeBase, vector.DWT);
                                 //console.log(Similarity);
@@ -129,7 +131,7 @@ exports.register = function(server, options, next) {
                                 //console.log(simsum);
                                 //res.message = 'similarity vector: ' + '[ Min:' + Similarity.Min.toFixed(2) + ' , ' + 'Max:' + Similarity.Max.toFixed(2) + ' , ' + 'Template:' + Similarity.Template.toFixed(2) + ']';
                                 res.Similarity = Similarity;
-                                res.type = (simsum > 2.25 && simsum < 4.5) ? true : false;
+                                res.type = (simsum > 2.5 && simsum < 3.75) ? true : false;
 
 
                                 //console.log(res.type);
