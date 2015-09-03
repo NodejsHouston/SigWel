@@ -230,6 +230,10 @@ $(document).ready(function() {
 		RefSigContext.paint = false;
 	}, false);
 
+	refcanvas.addEventListener("touchleave", function(e){
+		RefSigContext.paint = false;
+	}, false);
+
 	//For test signature canvas
 	testcanvas.addEventListener("touchstart", function(e) {
 		e.preventDefault();
@@ -249,6 +253,10 @@ $(document).ready(function() {
 	}, false);
 	
 	testcanvas.addEventListener("touchend", function(e) {
+		TestSigContext.paint = false;
+	}, false);
+
+	testcanvas.addEventListener("touchleave", function(e){
 		TestSigContext.paint = false;
 	}, false);
 
