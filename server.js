@@ -1,6 +1,6 @@
 /**
-* Dependencies.
-*/
+ * Dependencies.
+ */
 var Hapi = require('hapi');
 //Load Mongo driver...
 var mongoose = require('mongoose');
@@ -18,23 +18,23 @@ mongoose.connect(config.db.connection);
 server.connection({
     port: parseInt(process.env.PORT, 10) || config.http.port,
     host: '0.0.0.0',
-    
+
     // tls: {
     //     key: config.https.key,
     //     cert: config.https.cert
-    }
-);
-
-if(process.env.NODE_ENV="production"){
- server.ext('onRequest', function (request, reply) {
-
-   if (request.headers['x-forwarded-proto'] === 'http') {
-   
-      return reply.code(400);
-    
-    }
-   reply.continue();
 });
+
+if (process.env.NODE_ENV = "production") {
+    server.ext('onRequest', function(request, reply) {
+
+        if (request.headers['x-forwarded-proto'] === 'http') {
+
+            return reply.code(400);
+
+        } else {
+            reply.continue();
+        }
+    });
 }
 // Setup the views engine and folder
 server.views({
@@ -66,14 +66,11 @@ server.register([
     {
         register: require("hapi-assets"),
         options: require('./src/assets.js')
-    },
-    {
+    }, {
         register: require("hapi-named-routes")
-    },
-    {
+    }, {
         register: require("hapi-cache-buster")
-    },
-    {
+    }, {
         register: require('./src/server/assets/index.js')
     },
     // {
@@ -86,9 +83,9 @@ server.register([
     {
         register: require('./src/server/api/index.js')
     }
-], function () {
+], function() {
     //Start the server
-    server.start(function () {
+    server.start(function() {
         //Log to the console the host and port info
         console.log('Server started at: ' + server.info.uri);
     });
