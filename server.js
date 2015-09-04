@@ -1,21 +1,41 @@
 /**
-* Dependencies.
-*/
+ * Dependencies.
+ */
 var Hapi = require('hapi');
 //Load Mongo driver...
 var mongoose = require('mongoose');
+var Boom = require('boom');
+var config = require('./src/config');
 // Create a new server
+
+
 var server = new Hapi.Server();
 
 //Connect to MongoDBLab instance...
-mongoose.connect("mongodb://sigwel:NhSwDb@ds029803.mongolab.com:29803/sigweldb");
+mongoose.connect(config.db.connection);
 
 // Setup the server with a host and port
 server.connection({
-    port: parseInt(process.env.PORT, 10) || 3000,
-    host: '0.0.0.0'
+    port: parseInt(process.env.PORT, 10) || config.http.port,
+    host: '0.0.0.0',
+
+    // tls: {
+    //     key: config.https.key,
+    //     cert: config.https.cert
 });
 
+if (process.env.NODE_ENV = "production") {
+    server.ext('onRequest', function(request, reply) {
+
+        if (request.headers['x-forwarded-proto'] === 'http') {
+
+            return reply(Boom.badRequest('HTTP Are Not Supported'));
+
+        } else {
+            reply.continue();
+        }
+    });
+}
 // Setup the views engine and folder
 server.views({
     engines: {
@@ -45,26 +65,27 @@ server.register([
     // },
     {
         register: require("hapi-assets"),
-        options: require('./assets.js')
-    },
-    {
+        options: require('./src/assets.js')
+    }, {
         register: require("hapi-named-routes")
-    },
-    {
+    }, {
         register: require("hapi-cache-buster")
+    }, {
+        register: require('./src/server/assets/index.js')
     },
+    // {
+    //     register: require('./src/server/api/preRequest.js')
+    // },
     {
-        register: require('./server/assets/index.js')
+        register: require('./src/server/base/index.js')
     },
+
     {
-        register: require('./server/base/index.js')
-    },
-    {
-        register: require('./server/api/index.js')
+        register: require('./src/server/api/index.js')
     }
-], function () {
+], function() {
     //Start the server
-    server.start(function () {
+    server.start(function() {
         //Log to the console the host and port info
         console.log('Server started at: ' + server.info.uri);
     });

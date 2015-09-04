@@ -16,7 +16,7 @@ var NormalizeBase = {
 // This Schema store user information, for now, include username and a set of signature 
 var UserSchema = new Schema({
 	Username: String,
-	//Email: String,
+	Email: String,
 	//CreatedTime: Date,
 	NormalizeBase: NormalizeBase,
 	SigSet: [Signature] 

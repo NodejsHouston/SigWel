@@ -4,8 +4,12 @@ module.exports = {
         js: ['js/lib/modernizr.js', 'js/lib/jquery.js', 'js/lib/foundation.min.js', 'js/custom/index.js'],
         css: ['css/foundation.css','css/styles.css']
     },
-    production: {
+    /*production: {
         js: ['js/scripts.js'],
         css: ['css/styles.css']
+    }*/
+    production: {
+    	js: ['js/lib/modernizr.js', 'js/lib/jquery.js', 'js/lib/foundation.min.js', 'js/custom/index.js'],
+        css: ['css/foundation.css','css/styles.css']
     }
 }
