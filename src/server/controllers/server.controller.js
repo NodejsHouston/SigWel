@@ -1,7 +1,56 @@
 var user = require('../models/server.model.js').EncryptedUserSigs;
+var ApiUser = require('../models/server.model.js').ApiUser;
 
 var encdec = require('../lib/encdec.js')
 var crypto = new encdec();
+
+
+exports.CreateApiUser = function(request,reply,fn){
+	var data = request.payload;
+	console.log(data);
+	var newApiUser = new ApiUser({
+	Username: data.Username,
+	Password: crypto.Encrypt(data.Password),
+	Email: crypto.Encrypt(data.Email),
+	WebDomain: data.WebDomain || '',
+	UserLevel: data.UserLevel || 1,
+	});
+
+	newApiUser.save(function(err){
+		if(err){
+			console.log(err);
+			reply({type:false, message:"Failed to Create User..."});
+		}
+		else{
+			console.log("Saved user");
+			reply({type:true, message:"Save your information successfully"});
+		}
+
+	});
+};
+
+exports.ValidateApiUser = function(request,reply,fn){
+	var query = ApiUser.findOne({
+		Username: request.payload.Username,
+		Password: crypto.Encrypt(request.payload.Password)
+	});
+
+	query.exec(function(err,result){
+		if(err){
+			console.log("error read");
+			reply({type:false, message: "read error occur!"});
+		}
+		
+		if(result){
+			result.Email= crypto.Decrypt(result.Email);
+			
+			fn(result);
+		}
+		else{
+			reply({type:false, message: "User doesn't Exist!"})
+		}
+	});
+}
 
 
 //DB write operation,create a new user and associated signature set. 

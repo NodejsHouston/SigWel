@@ -12,37 +12,38 @@
 	  <div class="large-12 columns">
 	    <div class="panel">
 	      <div class="row">
-	      	<div class="large-offset-2 medium-offset-3 large-8 medium-6 columns">
+	      	<div class="large-offset-2 medium-offset-3 large-6 medium-6 columns">
 	      		
 	      		
                 <form id="userInfo">
                 <div class="row">
-                  <div class="large-offset-2 large-8 columns">
+                  <div class="large-8 columns">
                   	<h6>Username</h6>
                     <input  type="text" name="Username" placeholder="Your user name" required/>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="large-offset-2 large-8 columns">
+                  <div class="large-8 columns">
                   	<h6>Password</h6>
                     <input  type="password" name="Password" placeholder="Your password" required/>
                   </div>
                 </div>
+               
                 <div class="row">
-                  <div class="large-offset-2 large-8 columns">
-                    <h6>Email</h6>
-                    <input  type="text" name="Email" placeholder="Your Email Address" required/>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="large-offset-4 large-2 columns">
-                    <input type="submit" value="Sign Up" class="small button"/>
+                  <div class="large-offset-2 large-6 columns">
+                    <input type="submit" value="Login in" class="medium button"/>
                   </div>
                 </div>
             </form>
             </div>
 
-            
+            <div class="large-4 medium-6 columns">
+            	<h6>Don't have an account? </h6>
+              
+                    <a href="/register" >Sign up here</a>
+                  
+                </div>
+            </div>	
 	      	</div>
 	      </div>
 	    </div>
@@ -51,5 +52,5 @@
 
 {% endblock %}
 {% block footer_js %}
-<script src='js/custom/register.js'></script>
+<script src='js/custom/login.js'></script>
 {% endblock %}

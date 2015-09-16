@@ -6,6 +6,7 @@ exports.register = function (server, options, next) {
             method: 'GET',
             path: '/partials/{path*}',
             config: {
+                auth:false,
                 handler: {
                     directory: { path: './src/server/views/partials' }
                 },
@@ -16,6 +17,7 @@ exports.register = function (server, options, next) {
             method: 'GET',
             path: '/images/{path*}',
             config: {
+                auth:false,
                 handler: {
                     directory: { path: './src/public/images' }
                 },
@@ -28,6 +30,7 @@ exports.register = function (server, options, next) {
             method: 'GET',
             path: '/css/{path*}',
             config: {
+                auth:false,
                 handler: {
                     directory: { path: './src/public/css' }
                 },
@@ -38,6 +41,7 @@ exports.register = function (server, options, next) {
             method: 'GET',
             path: '/js/{path*}',
             config: {
+                auth:false,
                 handler: {
                     directory: { path: './src/public/js' }
                 },
@@ -70,6 +74,7 @@ exports.register = function (server, options, next) {
             method: 'GET',
             path: '/bower_components/{path*}',
             config: {
+                auth:false,
                 handler: {
                     directory: { path: './src/public/bower_components' }
                 },
