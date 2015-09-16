@@ -23,7 +23,7 @@ server.connection({
     //     key: config.https.key,
     //     cert: config.https.cert
 });
-
+                                    
 if (process.env.NODE_ENV = "production") {
     server.ext('onRequest', function(request, reply) {
 
@@ -52,6 +52,19 @@ module.exports = server;
     First: community/npm plugins are loaded
     Second: project specific plugins are loaded
  */
+server.register(require('hapi-auth-cookie'),function(err){
+    if(err) console.log(err);
+     server.auth.strategy('session','cookie',{
+        password: "sigpass",
+        redirectTo: "/login",
+        isSecure: false,
+        cookie: "sigcookie",
+        ttl: 5*60*1000
+     });
+
+     //server.auth.default('base');
+});
+
 server.register([
     // {
     //     register: require("good"),
@@ -82,7 +95,8 @@ server.register([
 
     {
         register: require('./src/server/api/index.js')
-    }
+    },
+    
 ], function() {
     //Start the server
     server.start(function() {

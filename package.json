@@ -25,10 +25,12 @@
     "good-console": "^4.0.0",
     "hapi": "^8.0.0",
     "hapi-assets": "~0.3.0",
+    "hapi-auth-cookie": "^3.1.0",
     "hapi-cache-buster": "~0.4.0",
     "hapi-named-routes": "~0.3.0",
     "mongoose": "^4.1.1",
-    "swig": "~1.4.2"
+    "swig": "~1.4.2",
+    "uuid": "^2.0.1"
   },
   "devDependencies": {
     "gulp": "~3.8.7",

@@ -3,6 +3,7 @@
 var vector = require('../lib/vector');
 var util = require('../lib/util');
 var UserCtrl = require('../controllers/server.controller.js');
+var uuid = require('uuid');
 
 exports.register = function(server, options, next) {
 
@@ -12,6 +13,7 @@ exports.register = function(server, options, next) {
             method: 'GET',
             path: apiBase + '/blah',
             config: {
+                
                 handler: function(request, reply) {
                     reply({
                         message: 'blah test'

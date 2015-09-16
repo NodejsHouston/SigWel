@@ -6,8 +6,16 @@
      <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
   </ul>
   <section class="top-bar-section">
+    {% if !credentials %}
     <ul class="left">
-      <li><a href="{{path.register}}">Register</a></li>
+      <li><a href="{{path.login}}">login/register</a></li>
     </ul>
+    {% endif %}
+    {% if credentials %}
+    <ul class="right">
+      <li><a href="{{path.profile}}">Welcome, {{credentials.Username}}</a></li>
+      <li><a href="{{path.logout}}">Log out</a></li>
+    </ul>
+    {% endif %}
   </section>
 </nav>

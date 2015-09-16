@@ -1,0 +1,45 @@
+{% extends './layouts/default.html' %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+	<div class="row">
+	  <div class="large-12 columns">
+	    <h1>Profile of {{credentials.Username}}</h1>
+	  </div>
+	</div>
+	<div class="row">
+	  <div class="large-12 columns">
+	    <div class="panel">
+	      <div class="row">
+	      	<div class="large-offset-2 medium-offset-3 large-8 medium-6 columns">
+	      		
+	      		<div class="row">
+                  <div class="large-10 columns">
+                    <h6>Hi, {{credentials.Username}}, you can get an API key to access our API, Thank you!</h6>
+
+                </div>
+                
+            </div>
+
+            <div class="row">
+                  <div class="larege-offset-2 large-8 columns">
+                   <a id="getkey" class="medium button"/>Get a API Key for my application</a>
+
+                </div>
+                
+            </div>
+
+            
+          </div>
+            
+	      	</div>
+	      </div>
+	    </div>
+	  </div>
+	
+
+{% endblock %}
+{% block footer_js %}
+<script src='js/custom/profile.js'></script>
+{% endblock %}
