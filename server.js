@@ -59,7 +59,7 @@ server.register(require('hapi-auth-cookie'),function(err){
         redirectTo: "/login",
         isSecure: false,
         cookie: "sigcookie",
-        ttl: 60*1000
+        ttl: 5*60*1000
      });
 
      //server.auth.default('base');

@@ -97,6 +97,7 @@ exports.register = function(server, options, next) {
                     //console.log("go into api");
                     //console.log(request.payload.data);
                     dbController.CreateApiUser(request, reply);
+                    request.auth.session.set(request.payload);
                     return reply({redirect:'/profile'});
 
                    
