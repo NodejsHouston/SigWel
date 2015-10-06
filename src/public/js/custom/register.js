@@ -26,6 +26,13 @@ $(document).ready(function(){
 			type: 'POST',
 			data: data,
 			success:function(data){
+				if(data.length){
+					$('#showMessage').empty();
+					data.forEach(function(error){
+						showMessage('#showMessage',error.message,error.type? 'succes':'alert');
+					});
+				}
+				if(typeof data.redirect=='string')
 				window.location = data.redirect;
 			}
 			
@@ -35,3 +42,14 @@ $(document).ready(function(){
 
 
 });
+
+function showMessage(element, message, type) {
+	var alertMarkup = $('<div data-alert class="alert-box"><span></span><a href="#" class="close">&times;</a></div>');
+	alertMarkup.addClass(type);
+	alertMarkup.children("span").text(message);
+
+	$(element).append(alertMarkup).foundation(
+		"alert",
+		undefined
+	);
+}

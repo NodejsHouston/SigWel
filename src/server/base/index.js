@@ -1,6 +1,12 @@
 // Base routes for default index/root path, about page, 404 error pages, and others..
 
 var dbController = require('../controllers/server.controller.js');
+var Joi = require('joi');
+var userShcema = Joi.object().keys({
+    Username: Joi.string().min(3).max(50).required(),
+    Password: Joi.string().regex(/[a-zA-Z0-9]{6,30}/),
+    Email: Joi.string().email().required()
+});
 exports.register = function(server, options, next) {
 
     server.route([{
@@ -96,9 +102,37 @@ exports.register = function(server, options, next) {
                 handler: function(request, reply) {
                     //console.log("go into api");
                     //console.log(request.payload.data);
-                    dbController.CreateApiUser(request, reply);
-                    request.auth.session.set(request.payload);
-                    return reply({redirect:'/profile'});
+                    Joi.validate(request.payload, userShcema, {abortEarly: false}, function(err,value){
+                        if(err){
+                            console.log(err);
+                            var errors= new Array();
+                            err.details.every(function(error){
+                                switch(error.path){
+                                    case 'Username':
+                                        errors.push({type:false, message:"Username has to be 3-50 letters"});
+                                        break;
+                                    case 'Password':
+                                        errors.push({type:false, message:"Password has to be 6-18 letters"});
+                                        break;
+                                    case 'Email':
+                                        errors.push({type:false, message:"Email is not valid"});
+                                        break;
+                                    default:
+                                        return false;
+                                }
+                                return true;
+
+                            });
+                            console.log(errors);
+                            reply(errors);
+                        }
+                        else{
+                        dbController.CreateApiUser(request, reply);
+                        request.auth.session.set(request.payload);
+                        return reply({redirect:'/profile'});
+                        }   
+                    })
+                    
 
                    
 
