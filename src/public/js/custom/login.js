@@ -28,6 +28,7 @@ $(document).ready(function(){
 			success:function(data){
 				if(typeof data.redirect=='string')
 				window.location=data.redirect;
+				
 			}
 			
 			
