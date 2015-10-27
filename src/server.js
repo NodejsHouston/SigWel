@@ -13,7 +13,7 @@ mongoose.connect("mongodb://sigwel:NhSwDb@ds029803.mongolab.com:29803/sigweldb")
 // Setup the server with a host and port
 server.connection({
     port: parseInt(process.env.PORT, 10) || 3000,
-    host: '0.0.0.0'
+    host: 'localhost'
 });
 
 // Setup the views engine and folder
