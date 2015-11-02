@@ -8,6 +8,7 @@ function vector(data){
 	else return false;
 }
 //remove consecutive points with the same value
+
 vector.prototype.Deduplication = function(){
         if(this.err)
         	return this;
@@ -23,7 +24,8 @@ vector.prototype.Deduplication = function(){
                 
                 else{
                 err={};
-                err.message="item is not array type";
+
+                err.message="item is not array type "+rawdata[i].toString();
                 }
 
             }

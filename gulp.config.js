@@ -4,7 +4,7 @@ module.exports = function() {
 	var config = {
 		nodeServer: {
 			build: './dist/server.js',
-			dev: serverDir + 'server.js'
+			dev: 'server.js'
 		},
 		server: serverDir
 	};

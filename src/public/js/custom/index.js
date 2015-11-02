@@ -17,7 +17,6 @@ var RefCanvas = $("#RefSigCanvas"),
 //var RefsigOutline = new Image();
 //var TestsigOutline = new Image();
 
-
 function signature() {
 	this.TrackX = new Array();
 	this.TrackY = new Array();
@@ -31,14 +30,14 @@ function signature() {
 }
 
 
-BigsigOutline.onload=function(){
-	if(RefSigContext.canvas.width>520)
-		RefSigContext.drawImage(BigsigOutline, RefSigContext.canvas.width*0.1, RefSigContext.canvas.height*0.4);
+BigsigOutline.onload = function() {
+	if (RefSigContext.canvas.width > 520)
+		RefSigContext.drawImage(BigsigOutline, RefSigContext.canvas.width * 0.1, RefSigContext.canvas.height * 0.4);
 };
 
-SmallsigOutline.onload = function(){
-	if(RefSigContext.canvas.width<=520)
-		RefSigContext.drawImage(SmallsigOutline, RefSigContext.canvas.width*0.1, RefSigContext.canvas.height*0.55);
+SmallsigOutline.onload = function() {
+	if (RefSigContext.canvas.width <= 520)
+		RefSigContext.drawImage(SmallsigOutline, RefSigContext.canvas.width * 0.1, RefSigContext.canvas.height * 0.55);
 
 };
 BigsigOutline.src = '/images/signature-big.jpg';
@@ -55,19 +54,7 @@ $(document).ready(function() {
     $( "#panel2-1" ).append( html );
   });
 
-	//sigOutline.src = '/images/signature-big.jpg';
-	//Make canvas responsive
-	/*RefsigOutline.onload = function() {
-	console.log("rf");
-	RefSigContext.drawImage(RefsigOutline, RefSigContext.canvas.width*0.10, RefSigContext.canvas.height*0.25);
-};
 
-	TestsigOutline.onload = function() {
-	TestSigContext.drawImage(TestsigOutline, TestSigContext.canvas.width*0.10, TestSigContext.canvas.height*0.25);
-};*/
-/*sigOutline.onload = function() {
-	
-};*/
 
 	$(window).resize(responsive);
 	responsive();
@@ -93,10 +80,12 @@ $(document).ready(function() {
 		RefSigCollection.push(RefSigContext.Sig);
 		var username = $("#refuser").val();
 		var email = $("#refemail").val();
+		var host = $(location).attr('host');
+		var protocol = $(location).attr('protocol');
 		//submit user information and reference signature using post method
 		//TODO, ip address should be setted in configration file
 		$.ajax({
-			url: "http://10.9.12.162:3000/api/user/ref/" + username,
+			url: protocol+'//'+host+'/api/user/ref/'+username,
 			type: 'POST',
 			data: {
 				username: username,
@@ -105,11 +94,14 @@ $(document).ready(function() {
 			},
 			success: function(data) {
 				var isSuccessful
-				if(data.type)
+				if (data.type)
 					isSuccessful = 'success';
 				else
 					isSuccessful = 'alert';
-				showMessage('#foundation-alerts1',data.message, isSuccessful);
+				showMessage('#foundation-alerts1', data.message, isSuccessful);
+				RefSigCollection = new Array();
+				RefSigContext.Sig = new Array();
+				clearpanel(RefSigContext);
 			}
 		});
 
@@ -140,13 +132,15 @@ $(document).ready(function() {
 	 * pass validation if the sum of the vectors are with in range of 1.5 to 6 
 	 * or else fail. */
 	$('#validate').click(function() {
-		
+
 		var username = $("#testuser").val();
 		var email = $("#testemail").val();
+		var host = $(location).attr('host');
+		var protocol = $(location).attr('protocol');
 		//Submit test signature of user to compare with reference signature stored in database
 		//TODO, ip address should be setted in configration file
 		$.ajax({
-			url: "http://10.9.12.162:3000/api/user/test/" + username,
+			url: protocol+'//'+host+'/api/user/test/'+ username,
 			type: 'POST',
 			data: {
 				username: username,
@@ -155,24 +149,20 @@ $(document).ready(function() {
 			},
 			success: function(data) {
 				var isSuccessful;
-				if(data.Similarity){
-				if(data.type){
-					isSuccessful = 'success';
-					data.message = 'similarity vector: ' + '[ Min:' + data.Similarity.Min.toFixed(2) + ' , ' + 'Max:' + data.Similarity.Max.toFixed(2) + ' , ' + 'Template:' + data.Similarity.Template.toFixed(2) + ']'
-									+ '  You are accepted! Congratulations!' ;
-				}
-				else{
-					isSuccessful = 'alert';
-					data.message = 'similarity vector: ' + '[ Min:' + data.Similarity.Min.toFixed(2) + ' , ' + 'Max:' + data.Similarity.Max.toFixed(2) + ' , ' + 'Template:' + data.Similarity.Template.toFixed(2) + ']'
-									+'  You are rejected! Please try again!';
-				}
-			}
-				else if(data.type)
+				if (data.Similarity) {
+					if (data.type) {
+						isSuccessful = 'success';
+						data.message = 'similarity vector: ' + '[ Min:' + data.Similarity.Min.toFixed(2) + ' , ' + 'Max:' + data.Similarity.Max.toFixed(2) + ' , ' + 'Template:' + data.Similarity.Template.toFixed(2) + ']' + '  You are accepted! Congratulations!';
+					} else {
+						isSuccessful = 'alert';
+						data.message = 'similarity vector: ' + '[ Min:' + data.Similarity.Min.toFixed(2) + ' , ' + 'Max:' + data.Similarity.Max.toFixed(2) + ' , ' + 'Template:' + data.Similarity.Template.toFixed(2) + ']' + '  You are rejected! Please try again!';
+					}
+				} else if (data.type)
 					isSuccessful = 'success';
 				else
 					isSuccessful = 'alert';
-				showMessage('#foundation-alerts2',data.message, isSuccessful);
-				
+				showMessage('#foundation-alerts2', data.message, isSuccessful);
+
 			}
 		});
 
@@ -196,7 +186,7 @@ $(document).ready(function() {
 
 		context.paint = true;
 		addClick(Math.floor(e.pageX - offset.left), Math.floor(e.pageY - offset.top), false, context);
-		
+
 		redraw(context);
 	});
 
@@ -212,7 +202,7 @@ $(document).ready(function() {
 
 		if (context.paint) {
 			addClick(Math.floor(e.pageX - offset.left), Math.floor(e.pageY - offset.top), true, context);
-			
+
 			redraw(context);
 		}
 	});
@@ -236,7 +226,7 @@ $(document).ready(function() {
 		addClick(Math.floor(e.touches[0].pageX - offset.left), Math.floor(e.touches[0].pageY - offset.top), false, RefSigContext);
 		redraw(RefSigContext);
 	}, false);
-	
+
 	refcanvas.addEventListener("touchmove", function(e) {
 		e.preventDefault();
 		var offset = $(this).offset();
@@ -245,8 +235,12 @@ $(document).ready(function() {
 			redraw(RefSigContext);
 		}
 	}, false);
-	
+
 	refcanvas.addEventListener("touchend", function(e) {
+		RefSigContext.paint = false;
+	}, false);
+
+	refcanvas.addEventListener("touchleave", function(e) {
 		RefSigContext.paint = false;
 	}, false);
 
@@ -258,7 +252,7 @@ $(document).ready(function() {
 		addClick(Math.floor(e.touches[0].pageX - offset.left), Math.floor(e.touches[0].pageY - offset.top), false, TestSigContext);
 		redraw(TestSigContext);
 	}, false);
-	
+
 	testcanvas.addEventListener("touchmove", function(e) {
 		e.preventDefault();
 		var offset = $(this).offset();
@@ -267,8 +261,12 @@ $(document).ready(function() {
 			redraw(TestSigContext);
 		}
 	}, false);
-	
+
 	testcanvas.addEventListener("touchend", function(e) {
+		TestSigContext.paint = false;
+	}, false);
+
+	testcanvas.addEventListener("touchleave", function(e) {
 		TestSigContext.paint = false;
 	}, false);
 
@@ -276,17 +274,16 @@ $(document).ready(function() {
 
 
 
-
 function clearpanel(context) {
 
 	if (context) {
 		context.clearRect(0, 0, context.canvas.width, context.canvas.height);
-		if(context.canvas.width<520)
-		context.drawImage(SmallsigOutline, context.canvas.width*0.10, context.canvas.height*0.55);
+		if (context.canvas.width < 520)
+			context.drawImage(SmallsigOutline, context.canvas.width * 0.10, context.canvas.height * 0.55);
 		else
-		context.drawImage(BigsigOutline, context.canvas.width*0.10, context.canvas.height*0.4);
+			context.drawImage(BigsigOutline, context.canvas.width * 0.10, context.canvas.height * 0.4);
 	}
-	
+
 }
 
 
@@ -302,16 +299,16 @@ function addClick(x, y, dragging, context) {
 
 /* Clear canvas and redraw signature path on the canvas */
 function redraw(context) {
-	
+
 	clearpanel(context); // Clears the canvas
 	//context.drawImage(sigOutline, 0, 0);
 	var sig = context.Sig;
 	context.strokeStyle = "#000";
 	context.lineJoin = "round";
-	if(context.canvas.width>520)
-	context.lineWidth = 4;
+	if (context.canvas.width > 520)
+		context.lineWidth = 4;
 	else
-	context.lineWidth = 1;
+		context.lineWidth = 1;
 	if (sig) {
 		for (var i = 0; i < sig.TrackX.length; i++) {
 			context.beginPath();
@@ -323,9 +320,9 @@ function redraw(context) {
 			context.lineTo(sig.TrackX[i], sig.TrackY[i]);
 			context.closePath();
 			context.stroke();
-			}
 		}
-	
+	}
+
 }
 
 /* Display alert box with validation results */
