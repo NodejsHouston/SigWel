@@ -43,16 +43,6 @@ SmallsigOutline.onload = function() {
 BigsigOutline.src = '/images/signature-big.jpg';
 SmallsigOutline.src = '/images/signature-small.jpg';
 $(document).ready(function() {
-	
-	var urlLink = "http://localhost:3000/api/users";
-	$.ajax({
-	  url: urlLink,
-	  cache: false
-	})
-  .done(function( html ) {
-  	console.log("hi")
-    $( "#panel2-1" ).append( html );
-  });
 
 
 
