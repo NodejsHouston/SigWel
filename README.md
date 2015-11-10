@@ -35,6 +35,7 @@ Install [gulp](https://github.com/gulpjs/gulp/blob/master/docs/getting-started.m
 
 ## Running the Server
 To run the server and follow the steps below:
+
 1. Run `npm install` from the command prompt to install any dependencies that you have not already installed
 2. Run `gulp serve-dev` to run the server and watch for and restart the server after any changes to server files
 3. Open browser and navigate to http://localhost:3000/
@@ -52,6 +53,7 @@ To run the server and follow the steps below:
 
 ### Server folder
 - The "server" folder for server side code.
+
 ### main file and dev configuration
 - server.js (main file)
 - package.json (package management)
