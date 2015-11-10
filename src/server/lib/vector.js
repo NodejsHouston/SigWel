@@ -25,7 +25,7 @@ vector.prototype.Deduplication = function(){
                 else{
                 err={};
 
-                err.message="item is not array type "+rawdata[i].toString();
+                err.message="item is not array type ";
                 }
 
             }
@@ -104,7 +104,7 @@ vector.prototype.CompareDelta= function(){
                 }
 
             }
-
+            
             if (!err){
             	var ArrayLength = rawdata[0].length;
             	for (j=0; j<ArrayLength-1 ; j++ ){

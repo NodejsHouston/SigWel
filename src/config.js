@@ -2,7 +2,7 @@ var fs = require('fs');
 var config=
 {
 	host: 'localhost',
-    http: { port: 8080 },
+    http: { port: 8000 },
     https: { 
         port: 8080, 
         key: fs.readFileSync('./src/server/key.pem'), 

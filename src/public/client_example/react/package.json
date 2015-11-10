@@ -1,0 +1,41 @@
+{
+  "name": "Slog",
+  "version": "0.0.1",
+  "description": "sunzhx's blog",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack-dev-server --hot --inline"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sunzhxjs/Slog.git"
+  },
+  "keywords": [
+    "blog"
+  ],
+  "author": "sunzhxjs",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sunzhxjs/Slog/issues"
+  },
+  "homepage": "https://github.com/sunzhxjs/Slog",
+  "devDependencies": {
+    "babel-core": "^5.8.25",
+    "babel-loader": "^5.3.2",
+    "css-loader": "^0.19.0",
+    "html-webpack-plugin": "^1.6.2",
+    "path": "^0.12.7",
+    "react-hot-loader": "^1.3.0",
+    "style-loader": "^0.12.4",
+    "webpack": "^1.12.2",
+    "webpack-dev-server": "^1.12.0"
+  },
+  "dependencies": {
+    "es6-shim": "^0.33.6",
+    "node-uuid": "^1.4.3",
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0",
+    "superagent": "^1.4.0"
+  }
+}

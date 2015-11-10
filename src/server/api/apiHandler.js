@@ -4,6 +4,8 @@ var UserCtrl = require('../controllers/server.controller.js');
 
 module.exports = {
 	PostRef: function(request, reply) {
+		var authorization = request.raw.req.headers.authorization;
+		console.log(authorization);
 		var data = {};
 		data.Username = request.payload.username;
 		data.Email = request.payload.email;

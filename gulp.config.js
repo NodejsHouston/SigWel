@@ -6,7 +6,8 @@ module.exports = function() {
 			build: './dist/server.js',
 			dev: 'server.js'
 		},
-		server: serverDir
+		server: serverDir,
+		defaultPort: 3000
 	};
 	
 	return config;
