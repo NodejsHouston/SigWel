@@ -19,15 +19,15 @@ The project is being organized on [Trello](https://trello.com/b/jikk5lqR/sigwel)
 - Ilmo Jung  (Focus on security of the project)
 - Saul Maddox , Alan Lee  (Always help us out when we have technical quesions)
 
+
 ## Project outline
 - Sandbox folder for prototyping
-- Database
-	- NoSQL Database? (MongoDB )
+- Database (MongoDB instance)
 - Server framework (hapi.js)
 - Client framework (Foundation)
 - Documentation
-- Hosting (i.e. AWS, Heroku)
-- Client side scaffolding
+- Hosting (Heroku for now)
+- Client side scaffolding (react, angular, ember)
 
 ## Before running the Server
 [NodeJS](https://nodejs.org/) must installed.
@@ -39,10 +39,21 @@ To run the server and follow the steps below:
 2. Run `gulp serve-dev` to run the server and watch for and restart the server after any changes to server files
 3. Open browser and navigate to http://localhost:3000/
 
+## Running the client example
+### react example
+1. move to `public/client_example/react`, run `npm install` from the command prompt to install all dependencies
+2. Run `npm run dev` to launch webpack-server which serve react example locally.
+3. Open browser and navigate to http://localhost:8080/
+
 
 ## Folder Structure
 ### Public folder
- - The "public" folder for front-end (client side) code.
+ - The "public" folder for front-end (client side) code (including different frontend framework example).
 
 ### Server folder
 - The "server" folder for server side code.
+### main file and dev configuration
+- server.js (main file)
+- package.json (package management)
+- gulpfile.js (build management)
+
