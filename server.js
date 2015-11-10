@@ -18,6 +18,7 @@ mongoose.connect(config.db.connection);
 server.connection({
     port: parseInt(process.env.PORT, 10) || config.http.port,
     host: '0.0.0.0',
+    routes: {cors:true} // Enable CORS
 
     // tls: {
     //     key: config.https.key,
@@ -25,6 +26,7 @@ server.connection({
 });
                                     
 if (process.env.NODE_ENV = "production") {
+    //deny http access in production env
     server.ext('onRequest', function(request, reply) {
 
         if (request.headers['x-forwarded-proto'] === 'http') {
